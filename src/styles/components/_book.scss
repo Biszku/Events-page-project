@@ -1,0 +1,30 @@
+.Book__section {
+  height: 80vh;
+  background-color: rgba(#fff4e6, 0.5);
+  padding: 5rem;
+  border-radius: 0.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: auto 1fr;
+
+  &__inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/-1;
+
+    &-input {
+      width: 70%;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      border-bottom: 0.2rem solid #868e96;
+      font-size: 1.6rem;
+      font-family: inherit;
+      font-weight: 400;
+      padding-bottom: 0.5rem;
+    }
+  }
+}

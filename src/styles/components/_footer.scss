@@ -1,0 +1,10 @@
+.footer {
+  align-self: stretch;
+  background-color: $primary-background;
+
+  &-text {
+    color: $primary-text-color;
+    font-size: 1.4rem;
+    padding: 2rem 10rem;
+  }
+}

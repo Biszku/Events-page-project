@@ -1,26 +1,22 @@
 import HeaderSection from "./components/Header/MainHeader";
+import Footer from "./components/Footer/Footer";
+import AboutUs from "./components/About us Section/AboutUs";
+import BookSection from "./components/Book section/Book";
+import GallerySection from "./components/Gallery/Gallery";
 
 function App() {
   return (
     <div className="container">
-      <HeaderSection></HeaderSection>
+      <HeaderSection />
       <main>
-        <div>
-          <h2>About us</h2>
-        </div>
+        <AboutUs />
         <div>
           <h2>Offert</h2>
         </div>
-        <div>
-          <h2>Book event</h2>
-        </div>
-        <div>
-          <h2>Gallery</h2>
-        </div>
+        <BookSection />
+        <GallerySection />
       </main>
-      <div>
-        <h2>Footer</h2>
-      </div>
+      <Footer />
     </div>
   );
 }

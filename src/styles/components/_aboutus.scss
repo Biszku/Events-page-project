@@ -1,0 +1,41 @@
+.aboutus__section {
+  background-color: $secondary-background;
+  transform: skewY(-10deg);
+  padding: 10rem 5rem;
+
+  & > * {
+    transform: skewY(10deg);
+  }
+
+  &-container {
+    margin: 0 auto;
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 3.5rem;
+    grid-row-gap: 7rem;
+  }
+
+  &-h2 {
+    grid-column: 1/-1;
+  }
+
+  &__card {
+    text-align: center;
+
+    &-icon {
+      width: 3.6rem;
+      height: 3.6rem;
+      margin-bottom: 3.6rem;
+      color: rgb(7, 7, 48);
+    }
+
+    &-text {
+      color: $primary-text-color;
+      font-size: 1.8rem;
+      line-height: 1.5;
+      margin-bottom: 6rem;
+      text-align: start;
+    }
+  }
+}

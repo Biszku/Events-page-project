@@ -1,0 +1,13 @@
+.Gallery__section {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 3rem;
+  grid-row-gap: 3rem;
+  width: 100%;
+
+  & img {
+    width: 100%;
+  }
+}

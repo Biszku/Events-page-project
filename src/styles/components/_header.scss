@@ -28,7 +28,7 @@
 
       &-item:last-child {
         margin-left: auto;
-        background-color: #5d5dd5;
+        background-color: $secondary-background;
         padding: $primary-button-padding;
         border-radius: $button-border-radius;
 
@@ -67,6 +67,7 @@
       color: $primary-text-color-dark;
       font-size: 1.8rem;
       line-height: 1.5;
+      width: 80%;
     }
     a {
       align-self: flex-start;
