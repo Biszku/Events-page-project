@@ -1,0 +1,30 @@
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+h1 {
+  font-size: 8rem;
+  line-height: 0.9;
+  background-image: linear-gradient(
+    to right,
+    $primary-text-color,
+    $primary-text-color-dark
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+h2 {
+  font-size: 6rem;
+  line-height: 0.9;
+  background-image: linear-gradient(
+    to right,
+    $primary-text-color,
+    $primary-text-color-dark
+  );
+  background-clip: text;
+  color: transparent;
+}
