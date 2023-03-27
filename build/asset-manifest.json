@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "./static/css/main.a48014ca.css",
+    "main.js": "./static/js/main.7c2c6b0f.js",
+    "static/media/coverr-toasting-with-champagne-4587-original.mp4": "./static/media/coverr-toasting-with-champagne-4587-original.5ee178db7c2956c3ac38.mp4",
+    "static/media/img2.jpg": "./static/media/img2.79e957c5e56f0f3190d1.jpg",
+    "static/media/img5.jpg": "./static/media/img5.5fbf7a3b11691cdda83b.jpg",
+    "static/media/img3.jpg": "./static/media/img3.fa4933268cb6755ed66a.jpg",
+    "static/media/img1.jpg": "./static/media/img1.44547bdc53cd9fe0f609.jpg",
+    "static/media/img6.jpg": "./static/media/img6.6228c27da596fe584769.jpg",
+    "static/media/img7.jpg": "./static/media/img7.992ea8a59b0384e88825.jpg",
+    "static/media/img4.jpg": "./static/media/img4.db3e17e134a77d941904.jpg",
+    "index.html": "./index.html",
+    "main.a48014ca.css.map": "./static/css/main.a48014ca.css.map",
+    "main.7c2c6b0f.js.map": "./static/js/main.7c2c6b0f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a48014ca.css",
+    "static/js/main.7c2c6b0f.js"
+  ]
+}
