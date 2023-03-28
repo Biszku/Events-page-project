@@ -9,27 +9,47 @@ import img7 from "../../assets/img/img7.jpg";
 function Gallery() {
   return (
     <section className="Gallery__section">
-      <div className="Gallery__section-img">
-        <img src={img1} />
-      </div>
-      <div className="Gallery__section-img">
-        <img src={img2} />
-      </div>
-      <div className="Gallery__section-img">
-        <img src={img3} />
-      </div>
-      <div className="Gallery__section-img">
-        <img src={img4} />
-      </div>
-      <div className="Gallery__section-img">
-        <img src={img5} />
-      </div>
-      <div className="Gallery__section-img">
-        <img src={img6} />
-      </div>
-      <div className="Gallery__section-img">
-        <img src={img7} />
-      </div>
+      <figure className="Gallery__section-imgField field-1">
+        <img
+          className="Gallery__section__img"
+          src={img1}
+          alt="people around colors"
+        />
+      </figure>
+      <figure className="Gallery__section-imgField field-2">
+        <img
+          className="Gallery__section__img"
+          src={img2}
+          alt="man under the water"
+        />
+      </figure>
+      <figure className="Gallery__section-imgField field-3">
+        <img
+          className="Gallery__section__img"
+          src={img3}
+          alt="people drinking something"
+        />
+      </figure>
+      <figure className="Gallery__section-imgField field-4">
+        <img className="Gallery__section__img" src={img4} alt="dj panel" />
+      </figure>
+      <figure className="Gallery__section-imgField field-5">
+        <img
+          className="Gallery__section__img"
+          src={img5}
+          alt="party stage and confetti"
+        />
+      </figure>
+      <figure className="Gallery__section-imgField field-6">
+        <img
+          className="Gallery__section__img"
+          src={img6}
+          alt="party stage and party"
+        />
+      </figure>
+      <figure className="Gallery__section-imgField field-7">
+        <img className="Gallery__section__img" src={img7} alt="party" />
+      </figure>
     </section>
   );
 }
