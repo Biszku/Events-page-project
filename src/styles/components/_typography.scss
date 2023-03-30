@@ -29,3 +29,16 @@ h2 {
   color: transparent;
   text-align: center;
 }
+
+button {
+  background-color: $secondary-background;
+  color: $primary-text-color-dark;
+  padding: $primary-button-padding;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 10000px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+}

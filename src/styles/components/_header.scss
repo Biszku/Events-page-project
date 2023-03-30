@@ -30,13 +30,10 @@
 
       &-item:last-child {
         margin-left: auto;
-        background-color: $secondary-background;
-        padding: $primary-button-padding;
-        border-radius: $button-border-radius;
 
-        &:hover {
+        & button:hover {
+          transform: scale(1.2);
           padding: 1rem 3rem;
-          border-bottom: none;
         }
       }
 
@@ -46,7 +43,7 @@
         color: $primary-text-color;
         transition: all 0.3s;
 
-        &:hover {
+        &:not(:last-child):hover {
           transform: scale(1.2);
           border-bottom: 1px solid $primary-text-color;
         }
