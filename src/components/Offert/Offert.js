@@ -20,7 +20,7 @@ function Offert() {
             Food Truck Festival
           </li>
         </ul>
-        <span className="Offert__item-span">Saving 200$</span>
+
         <button className="Offert__item-button">Buy for 399.99$</button>
       </div>
       <div className="Offert__item">
@@ -40,7 +40,7 @@ function Offert() {
             Tomorrowland
           </li>
         </ul>
-        <span className="Offert__item-span">Saving 250$</span>
+
         <button className="Offert__item-button">Buy for 499.99$</button>
       </div>
       <div className="Offert__item">
@@ -60,7 +60,7 @@ function Offert() {
             Amazing Race
           </li>
         </ul>
-        <span className="Offert__item-span">Saving 300$</span>
+
         <button className="Offert__item-button">Buy for 599.99$</button>
       </div>
     </section>

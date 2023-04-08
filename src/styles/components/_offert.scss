@@ -1,5 +1,6 @@
 .Offert {
   &__container {
+    width: 75%;
     display: flex;
     justify-content: space-between;
   }
@@ -34,17 +35,11 @@
       }
     }
 
-    &-span {
-      align-self: center;
-      margin: 3rem 0rem;
-      font-size: 1.7rem;
-    }
-
     &-button {
       align-self: center;
       font-size: 2rem;
 
-      margin: 0rem 0rem 3rem 0rem;
+      margin: 5rem 0rem 3rem 0rem;
 
       &:hover {
         transform: scale(1.1);
