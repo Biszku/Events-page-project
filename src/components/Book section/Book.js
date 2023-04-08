@@ -10,7 +10,17 @@ function Book() {
     const fetchData = async () => {
       setLoading(true);
       const res = await fetch(
-        `https://api.seatgeek.com/2/events?per_page=50&q=${inputValue}&client_id=${process.env.REACT_APP_API_CLIENT}&client_secret=${process.env.REACT_APP_API_SECRET}`
+        `https://api.seatgeek.com/2/events?per_page=50&q=${inputValue}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization:
+              "Basic " +
+              btoa(
+                `${process.env.REACT_APP_API_CLIENT}:${process.env.REACT_APP_API_SECRET}`
+              ),
+          },
+        }
       );
       const data = await res.json();
       console.log(data);
