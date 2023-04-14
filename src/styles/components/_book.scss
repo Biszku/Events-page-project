@@ -1,14 +1,14 @@
 .Book__section {
   width: 80%;
-  height: 80vh;
+  min-height: 80vh;
   background-color: rgba(#fff4e6, 0.5);
-  padding: 5rem;
+  padding: 5rem 5rem 5rem 5rem;
   border-radius: 0.5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   display: grid;
   grid-template-columns: 80% 20%;
-  grid-template-rows: max-content auto;
+  grid-template-rows: max-content 1fr max-content;
 
   &__inputContainer {
     display: flex;
@@ -92,6 +92,54 @@
 
         &:nth-child(5) {
           color: #c92a2a;
+        }
+      }
+    }
+  }
+  &__pagination {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5rem;
+
+    &-button {
+      background-color: $secondary-background;
+      color: $primary-text-color;
+      border: none;
+      font-size: 3.2rem;
+      width: 10%;
+      transition: transform 0.3s;
+      cursor: pointer;
+
+      &:first-child {
+        border-radius: 100rem 0rem 0rem 100rem;
+      }
+
+      &:last-child {
+        border-radius: 0rem 100rem 100rem 0rem;
+      }
+
+      &:hover {
+        transform: translateY(-0.3rem);
+      }
+    }
+
+    &-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.6rem;
+
+      &-button {
+        background-color: transparent;
+        width: 2rem;
+        border: none;
+        cursor: pointer;
+        font-size: 1.6rem;
+        padding: 0.5rem;
+
+        &.active-button {
+          border-bottom: 0.3rem solid black;
         }
       }
     }

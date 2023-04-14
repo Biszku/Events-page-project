@@ -21,7 +21,9 @@ function Offert() {
           </li>
         </ul>
 
-        <button className="Offert__item-button">Buy for 399.99$</button>
+        <button className="primary-button Offert__item-button">
+          Buy for 399.99$
+        </button>
       </div>
       <div className="Offert__item">
         <div className="Offert__item-images Offert__item-images-2"></div>
@@ -41,7 +43,9 @@ function Offert() {
           </li>
         </ul>
 
-        <button className="Offert__item-button">Buy for 499.99$</button>
+        <button className="primary-button Offert__item-button">
+          Buy for 499.99$
+        </button>
       </div>
       <div className="Offert__item">
         <div className="Offert__item-images Offert__item-images-3"></div>
@@ -61,7 +65,9 @@ function Offert() {
           </li>
         </ul>
 
-        <button className="Offert__item-button">Buy for 599.99$</button>
+        <button className="primary-button Offert__item-button">
+          Buy for 599.99$
+        </button>
       </div>
     </section>
   );

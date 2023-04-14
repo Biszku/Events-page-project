@@ -12,7 +12,7 @@ function HeaderNav() {
           <a href="#">Gallery</a>
         </li>
         <li className="header__nav-list-item">
-          <button>Book event</button>
+          <button className="primary-button">Book event</button>
         </li>
       </ul>
     </nav>
