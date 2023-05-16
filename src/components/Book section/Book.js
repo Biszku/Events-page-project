@@ -1,22 +1,45 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
+import BookElement from "./BookElement";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_EVENTS":
+      return { ...state, events: action.payload };
+    case "SET_FETCH_PAGE":
+      return { ...state, fetchPage: action.payload };
+    case "SET_INPUT_VALUE":
+      return { ...state, inputValue: action.payload };
+    case "SET_FIRST_LOAD":
+      return { ...state, firstLoad: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    case "SET_PAGE":
+      return { ...state, page: action.payload };
+    case "LIMIT_PAGE":
+      return { ...state, limitPage: action.payload };
+    default:
+      return state;
+  }
+}
 
 function Book() {
-  const [events, setEvents] = useState([]);
-  const [fetchPage, setFetchPage] = useState(1);
-  const [inputValue, setInputValue] = useState("");
-  const [firstLoad, setFirstLoad] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
-  const [eventsArrLength, setEventsArrLength] = useState();
-  const [paginationArray, setPaginationArray] = useState([]);
-  // const [actualPageSection, setActualPageSection] = useState([]);
+  const [state, dispatch] = useReducer(reducer, {
+    events: [],
+    fetchPage: 1,
+    inputValue: "",
+    firstLoad: true,
+    loading: false,
+    page: 0,
+    limitPage: 10,
+  });
 
   //Data fetching
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      dispatch({ type: "SET_LOADING", payload: true });
+      const tempArr = [];
       const res = await fetch(
-        `https://api.seatgeek.com/2/events?per_page=50&page=${fetchPage}&q=${inputValue}`,
+        `https://api.seatgeek.com/2/events?per_page=5000&page=${state.fetchPage}&q=${state.inputValue}`,
         {
           method: "GET",
           headers: {
@@ -29,92 +52,53 @@ function Book() {
         }
       );
       const data = await res.json();
-      const dataFilteredByTitle = data.events.filter(
-        (obj) =>
-          obj.title.toLowerCase().includes(inputValue.toLowerCase()) ||
-          obj.short_title.toLowerCase().includes(inputValue.toLowerCase())
+
+      const dataFilteredByTitle = data.events.filter((obj) =>
+        obj.title.toLowerCase().includes(state.inputValue.toLowerCase().trim())
       );
 
       for (let i = 0; i < dataFilteredByTitle.length; i += 5) {
         const pagesInArray = dataFilteredByTitle.slice(i, i + 5);
-        setPaginationArray((PrevState) => [...PrevState, pagesInArray]);
+        tempArr.push(pagesInArray);
       }
+
+      dispatch({ type: "SET_EVENTS", payload: tempArr });
+      dispatch({ type: "SET_LOADING", payload: false });
     };
 
-    if (!firstLoad) {
-      if (inputValue.trim().length === 0) return;
+    if (!state.firstLoad && state.inputValue.trim().length > 0) {
       const timer = setTimeout(() => fetchData(), 500);
       return () => {
         clearInterval(timer);
-        setEvents([]);
-        setFetchPage(1);
-        setPage(0);
-        setPaginationArray([]);
-        setEventsArrLength();
+        dispatch({ type: "SET_EVENTS", payload: [] });
+        dispatch({ type: "SET_FETCH_PAGE", payload: 1 });
+        dispatch({ type: "SET_PAGE", payload: 0 });
+        dispatch({ type: "LIMIT_PAGE", payload: 10 });
       };
+    } else {
+      dispatch({ type: "SET_FIRST_LOAD", payload: false });
     }
-  }, [inputValue]);
-
-  // Add events to array and pagination
-  useEffect(() => {
-    setEventsArrLength(paginationArray.length);
-    setEvents(paginationArray);
-  }, [paginationArray]);
-
-  // Deleting loading and disable first fetching
-  useEffect(() => {
-    if (!firstLoad) setLoading(false);
-    else setFirstLoad(false);
-  }, [events]);
+  }, [state.fetchPage, state.inputValue, state.firstLoad]);
 
   // Prev page
   const prevPageHandler = () => {
-    setPage((PrevPage) => (PrevPage -= 1));
+    dispatch({ type: "SET_PAGE", payload: state.page - 1 });
+    if (state.page < state.limitPage - 10) {
+      dispatch({ type: "LIMIT_PAGE", payload: state.limitPage - 10 });
+    }
   };
 
   // Next page
   const nextPageHandler = () => {
-    setPage((PrevPage) => (PrevPage += 1));
-  };
-
-  //Next pages inrease
-  const changePageHandler = (num) => {
-    setFetchPage((PrevState) => (PrevState += 1));
-    setPage(num);
-  };
-
-  // Initialization fetching more data
-  useEffect(() => {
-    if (page === eventsArrLength - 1) fetchMoreData();
-  }, [page]);
-
-  // Fetching more data
-  const fetchMoreData = async () => {
-    const res = await fetch(
-      `https://api.seatgeek.com/2/events?per_page=50&page=${fetchPage}&q=${inputValue}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization:
-            "Basic " +
-            btoa(
-              `${process.env.REACT_APP_API_CLIENT}:${process.env.REACT_APP_API_SECRET}`
-            ),
-        },
-      }
-    );
-    const data = await res.json();
-    const dataFilteredByTitle = data.events.filter(
-      (obj) =>
-        obj.title.toLowerCase().includes(inputValue.toLowerCase()) ||
-        obj.short_title.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    // const FullArray = [paginationArray.flat(1), dataFilteredByTitle].flat(1);
-    // console.log(FullArray);
-    for (let i = 0; i < dataFilteredByTitle.length; i += 5) {
-      const pagesInArray = dataFilteredByTitle.slice(i, i + 5);
-      setPaginationArray((PrevState) => [...PrevState, pagesInArray]);
+    dispatch({ type: "SET_PAGE", payload: state.page + 1 });
+    if (state.page > state.limitPage - 2) {
+      dispatch({ type: "LIMIT_PAGE", payload: state.limitPage + 10 });
     }
+  };
+
+  //Page click Handler
+  const changePageHandler = (num) => {
+    dispatch({ type: "SET_PAGE", payload: num });
   };
 
   return (
@@ -124,61 +108,31 @@ function Book() {
           className="Book__section__inputContainer-input"
           type="text"
           placeholder="Enter event name"
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) =>
+            dispatch({ type: "SET_INPUT_VALUE", payload: e.target.value })
+          }
         />
-        {loading && <div className="spinner spinner-input"></div>}
+        {state.loading && <div className="spinner spinner-input"></div>}
       </div>
       <div className="Book__section__output">
-        {events.length === 0 && !loading && (
-          <div className="noResultContainer">
-            <p>No results...</p>
-          </div>
-        )}
-        {events.length > 0 &&
-          events[page].map((el) => {
-            return (
-              <div key={el.id} className="Book__section__output-item">
-                <figure className="Book__section__output-item-img">
-                  <img
-                    src={el.performers[0].image}
-                    alt={el.performers[0].name}
-                  />
-                </figure>
-                <p>{el.short_title}</p>
-                <p>
-                  {el.stats.lowest_price ? el.stats.lowest_price + "$" : "-"}
-                </p>
-                <p>
-                  {el.stats.average_price ? el.stats.average_price + "$" : "-"}
-                </p>
-                <p>
-                  {el.stats.highest_price ? el.stats.highest_price + "$" : "-"}
-                </p>
-                <div
-                  className="popularity_container"
-                  style={{
-                    background: `linear-gradient(to right, #5d5dd5 0%, #5d5dd5 ${
-                      el.popularity * 100
-                    }%, rgba(255, 255, 255, 0.6) ${el.popularity * 100}%)`,
-                  }}
-                >
-                  {el.popularity}
-                </div>
-                <span>name</span>
-                <span>min price</span>
-                <span>avg price</span>
-                <span>max price</span>
-                <span>popularity</span>
-              </div>
-            );
+        {state.events.length === 0 &&
+          state.loading === false &&
+          state.inputValue !== "" && (
+            <div className="noResultContainer">
+              <p>No results...</p>
+            </div>
+          )}
+        {state.events.length > 0 &&
+          state.events[state.page].map((el) => {
+            return <BookElement data={el} />;
           })}
       </div>
       <div className="Book__section__asideElement"></div>
 
-      {events.length > 1 && (
+      {state.events.length > 1 && (
         <div className="Book__section__pagination">
           <button
-            style={{ visibility: page > 0 ? "visible" : "hidden" }}
+            style={{ visibility: state.page > 0 ? "visible" : "hidden" }}
             className="Book__section__pagination-button"
             onClick={prevPageHandler}
           >
@@ -186,22 +140,30 @@ function Book() {
           </button>
 
           <div className="Book__section__pagination-pagination">
-            {events.length > 0 &&
-              events.map((arr, numOfIndex) => (
-                <button
-                  className={`Book__section__pagination-pagination-button ${
-                    page === numOfIndex ? "active-button" : ""
-                  }`}
-                  key={numOfIndex}
-                  onClick={() => changePageHandler(numOfIndex)}
-                >
-                  {numOfIndex + 1}
-                </button>
-              ))}
+            {state.events.length > 0 &&
+              state.events.map((arr, numOfIndex) => {
+                if (
+                  numOfIndex < state.limitPage &&
+                  numOfIndex >= state.limitPage - 11
+                )
+                  return (
+                    <button
+                      className={`Book__section__pagination-pagination-button ${
+                        state.page === numOfIndex ? "active-button" : ""
+                      }`}
+                      key={numOfIndex}
+                      onClick={() => changePageHandler(numOfIndex)}
+                    >
+                      {numOfIndex + 1}
+                    </button>
+                  );
+              })}
           </div>
+
           <button
             style={{
-              visibility: page < events.length - 1 ? "visible" : "hidden",
+              visibility:
+                state.page < state.events.length - 1 ? "visible" : "hidden",
             }}
             className="Book__section__pagination-button"
             onClick={nextPageHandler}

@@ -127,15 +127,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
       font-size: 1.6rem;
 
       &-button {
         background-color: transparent;
-        width: 2rem;
         border: none;
         cursor: pointer;
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         padding: 0.5rem;
 
         &.active-button {
