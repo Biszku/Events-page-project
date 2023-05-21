@@ -2,7 +2,7 @@ import { ImCtrl } from "react-icons/im";
 
 function Offert() {
   return (
-    <section className="Offert__container">
+    <section className="Offert__container" id="Offert__container">
       <div className="Offert__item">
         <div className="Offert__item-images Offert__item-images-1"></div>
         <h3 className="Offert__item-h3">Food Festival</h3>

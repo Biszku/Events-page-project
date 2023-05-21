@@ -16,7 +16,7 @@ import img7web from "../../assets/img/img7.webp";
 
 function Gallery() {
   return (
-    <section className="Gallery__section">
+    <section className="Gallery__section" id="Gallery__section">
       <figure className="Gallery__section-imgField field-1">
         <picture>
           <source srcSet={img1web} type="image/webp" />

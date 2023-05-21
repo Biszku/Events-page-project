@@ -29,11 +29,15 @@
       gap: 7rem;
 
       &-item:last-child {
+        color: $primary-text-color;
         margin-left: auto;
+        display: block;
 
-        & button:hover {
+        &:hover {
           transform: scale(1.2);
-          padding: 1rem 3rem;
+          & a {
+            padding: 1rem 3rem;
+          }
         }
       }
 
@@ -42,6 +46,7 @@
         transform: scale(1);
         color: $primary-text-color;
         transition: all 0.3s;
+        cursor: pointer;
 
         &:not(:last-child):hover {
           transform: scale(1.2);
@@ -74,6 +79,7 @@
       color: $primary-text-color-dark;
       border-bottom: 1px solid $primary-text-color-dark;
       padding-bottom: 0.5rem;
+      cursor: pointer;
       &:hover {
         border-bottom: 1px solid transparent;
       }

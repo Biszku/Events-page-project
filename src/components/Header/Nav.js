@@ -1,18 +1,53 @@
+import { Link } from "react-scroll";
+
 function HeaderNav() {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-list-item">
-          <a href="#">About us</a>
+          <Link
+            to="aboutus__section"
+            spy={true}
+            smooth={true}
+            offset={-50}
+            duration={500}
+          >
+            About us
+          </Link>
         </li>
         <li className="header__nav-list-item">
-          <a href="#">Offert</a>
+          <Link
+            to="Offert__container"
+            spy={true}
+            smooth={true}
+            offset={-50}
+            duration={500}
+          >
+            Offert
+          </Link>
         </li>
         <li className="header__nav-list-item">
-          <a href="#">Gallery</a>
+          <Link
+            to="Gallery__section"
+            spy={true}
+            smooth={true}
+            offset={50}
+            duration={500}
+          >
+            Gallery
+          </Link>
         </li>
         <li className="header__nav-list-item">
-          <button className="primary-button">Book event</button>
+          <Link
+            className="primary-button"
+            to="Book__section"
+            spy={true}
+            smooth={true}
+            offset={-100}
+            duration={500}
+          >
+            Book event
+          </Link>
         </li>
       </ul>
     </nav>

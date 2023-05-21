@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import BookElement from "./BookElement";
 
 function reducer(state, action) {
@@ -33,6 +33,8 @@ function Book() {
     limitPage: 10,
   });
 
+  const [activeButton, SetActiveButton] = useState(true);
+
   //Data fetching
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +58,8 @@ function Book() {
       const dataFilteredByTitle = data.events.filter((obj) =>
         obj.title.toLowerCase().includes(state.inputValue.toLowerCase().trim())
       );
+
+      console.log(dataFilteredByTitle);
 
       for (let i = 0; i < dataFilteredByTitle.length; i += 5) {
         const pagesInArray = dataFilteredByTitle.slice(i, i + 5);
@@ -83,7 +87,7 @@ function Book() {
   // Prev page
   const prevPageHandler = () => {
     dispatch({ type: "SET_PAGE", payload: state.page - 1 });
-    if (state.page < state.limitPage - 10) {
+    if (state.page < state.limitPage - 9) {
       dispatch({ type: "LIMIT_PAGE", payload: state.limitPage - 10 });
     }
   };
@@ -91,7 +95,7 @@ function Book() {
   // Next page
   const nextPageHandler = () => {
     dispatch({ type: "SET_PAGE", payload: state.page + 1 });
-    if (state.page > state.limitPage - 2) {
+    if (state.page > state.limitPage - 3) {
       dispatch({ type: "LIMIT_PAGE", payload: state.limitPage + 10 });
     }
   };
@@ -102,7 +106,7 @@ function Book() {
   };
 
   return (
-    <section className="Book__section">
+    <section className="Book__section" id="Book__section">
       <div className="Book__section__inputContainer">
         <input
           className="Book__section__inputContainer-input"
@@ -124,7 +128,13 @@ function Book() {
           )}
         {state.events.length > 0 &&
           state.events[state.page].map((el) => {
-            return <BookElement data={el} />;
+            return (
+              <BookElement
+                data={el}
+                disableButton={() => SetActiveButton(false)}
+                enableButton={() => SetActiveButton(true)}
+              />
+            );
           })}
       </div>
       <div className="Book__section__asideElement"></div>
@@ -135,6 +145,7 @@ function Book() {
             style={{ visibility: state.page > 0 ? "visible" : "hidden" }}
             className="Book__section__pagination-button"
             onClick={prevPageHandler}
+            disabled={!activeButton && "disabled"}
           >
             {"<"}
           </button>
@@ -167,6 +178,7 @@ function Book() {
             }}
             className="Book__section__pagination-button"
             onClick={nextPageHandler}
+            disabled={!activeButton && "disabled"}
           >
             {">"}
           </button>

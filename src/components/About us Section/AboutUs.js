@@ -2,7 +2,7 @@ import { ImCoinDollar, ImRocket, ImFileText2 } from "react-icons/im";
 
 function AboutUs() {
   return (
-    <section className="aboutus__section">
+    <section className="aboutus__section" id="aboutus__section">
       <div className="aboutus__section-container">
         <h2 className="aboutus__section-h2">About Us</h2>
         <div className="aboutus__section__card">

@@ -1,3 +1,5 @@
+import { Link } from "react-scroll";
+
 function HeaderText() {
   return (
     <div className="header__text">
@@ -8,7 +10,15 @@ function HeaderText() {
         nesciunt ipsa modi cum, voluptatem dolore cupiditate tempore ducimus
         natus distinctio expedita!
       </span>
-      <a href="#">Learn more &rarr;</a>
+      <Link
+        to="aboutus__section"
+        spy={true}
+        smooth={true}
+        offset={-50}
+        duration={500}
+      >
+        Learn more &rarr;
+      </Link>
     </div>
   );
 }
