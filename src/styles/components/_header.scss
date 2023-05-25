@@ -29,39 +29,6 @@
       gap: 7rem;
       position: relative;
 
-      & span {
-        cursor: pointer;
-        display: block;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: red;
-        width: 1.5rem;
-        height: 1.5rem;
-        padding: 1rem;
-        border-radius: 50%;
-        font-size: 1.6rem;
-        font-weight: 700;
-        position: absolute;
-        right: 0%;
-        top: 0%;
-        transform: translate(50%, -30%);
-      }
-
-      &-item:nth-child(4) {
-        color: $primary-text-color;
-        margin-left: auto;
-        display: block;
-        transform: translateX(25%);
-
-        &:hover {
-          transform: scale(1.2) translateX(25%);
-          & a {
-            padding: 1rem 3rem;
-          }
-        }
-      }
-
       &-item {
         font-size: 2rem;
         transform: scale(1);
@@ -69,19 +36,51 @@
         transition: all 0.3s;
         cursor: pointer;
 
-        &:not(:nth-child(4)) {
-          border-bottom: 1px solid transparent;
+        &:nth-child(4) {
+          color: $primary-text-color;
+          margin-left: auto;
+          display: block;
+          transform: translateX(25%);
+
+          &:hover {
+            transform: scale(1.2) translateX(25%);
+            & a {
+              padding: 1rem 3rem;
+            }
+          }
         }
 
-        &:not(:nth-child(4)):hover {
-          transform: scale(1.2);
-          border-bottom: 1px solid $primary-text-color;
+        &:not(:nth-child(4)):not(:nth-child(5)) {
+          border-bottom: 1px solid transparent;
+
+          &:hover {
+            transform: scale(1.2);
+            border-bottom: 1px solid $primary-text-color;
+          }
         }
       }
 
       &-item:nth-child(5) {
         font-size: 3.6rem;
-        border-bottom: 1px solid transparent;
+
+        & span {
+          cursor: pointer;
+          display: block;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: red;
+          width: 1.5rem;
+          height: 1.5rem;
+          padding: 1rem;
+          border-radius: 50%;
+          font-size: 1.6rem;
+          font-weight: 700;
+          position: absolute;
+          right: 0%;
+          top: 0%;
+          transform: translate(50%, -30%);
+        }
 
         &:hover {
           border-bottom: 1px solid transparent;

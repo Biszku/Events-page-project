@@ -50,9 +50,10 @@ function HeaderNav() {
             Book event
           </Link>
         </li>
-
-        <ImCart className="header__nav-list-item" />
-        <span>1</span>
+        <li className="header__nav-list-item">
+          <ImCart className="header__nav-list-item" />
+          <span>1</span>
+        </li>
       </ul>
     </nav>
   );
