@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import BookElement from "./BookElement";
+import PopUpElement from "./PopUpElement";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -22,7 +23,7 @@ function reducer(state, action) {
   }
 }
 
-function Book() {
+function Book(props) {
   const [state, dispatch] = useReducer(reducer, {
     events: [],
     fetchPage: 1,
@@ -34,6 +35,21 @@ function Book() {
   });
 
   const [activeButton, SetActiveButton] = useState(true);
+
+  const [Storage, SetStorage] = useState([]);
+
+  const [IsVisible, SetIsVisible] = useState(false);
+
+  const [CurrentEvent, SetCurrentEvent] = useState();
+
+  useEffect(() => {
+    console.log(localStorage.getItem("historyData"));
+    localStorage.getItem("historyData") === null
+      ? SetStorage([])
+      : SetStorage((prevState) =>
+          JSON.parse(localStorage.getItem("historyData"))
+        );
+  }, []);
 
   //Data fetching
   useEffect(() => {
@@ -131,13 +147,32 @@ function Book() {
             return (
               <BookElement
                 data={el}
-                disableButton={() => SetActiveButton(false)}
-                enableButton={() => SetActiveButton(true)}
+                setCurData={() => {
+                  SetIsVisible(true);
+                  SetActiveButton(false);
+                  SetCurrentEvent(el);
+                }}
               />
             );
           })}
       </div>
-      <div className="Book__section__asideElement"></div>
+      <div className="Book__section__asideElement">
+        {Storage.map((historyEvent) => {
+          return (
+            <div
+              onClick={() => {
+                console.log(historyEvent);
+                SetIsVisible(true);
+                SetActiveButton(false);
+                SetCurrentEvent(historyEvent);
+              }}
+              className="Book__section__asideElement-element"
+            >
+              <p>{historyEvent.title}</p>
+            </div>
+          );
+        })}
+      </div>
 
       {state.events.length > 1 && (
         <div className="Book__section__pagination">
@@ -184,6 +219,17 @@ function Book() {
           </button>
         </div>
       )}
+
+      <PopUpElement
+        cart={props.cart}
+        memory={Storage}
+        addToCart={props.addToCart}
+        SetMemory={SetStorage}
+        enableButton={() => SetActiveButton(true)}
+        data={CurrentEvent}
+        visible={IsVisible}
+        close={() => SetIsVisible(false)}
+      />
     </section>
   );
 }

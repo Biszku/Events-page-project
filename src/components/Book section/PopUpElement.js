@@ -1,7 +1,14 @@
-import { ImBookmark, ImCross } from "react-icons/im";
+import { ImBookmark } from "react-icons/im";
 
 function PopUpElement(props) {
-  console.log(props.data.data);
+  const historyData = !JSON.parse(localStorage.getItem("historyData"))
+    ? []
+    : JSON.parse(localStorage.getItem("historyData"));
+
+  const newHistoryData = historyData.find((el) => el?.id === props.data?.id)
+    ? historyData.filter((el) => el.id !== props.data?.id)
+    : [props?.data, ...historyData];
+
   return (
     <div
       className="Book__section__output-item__popup"
@@ -14,11 +21,29 @@ function PopUpElement(props) {
       <div
         className="Book__section__output-item__popup-img"
         style={{
-          backgroundImage: `url(${props.data.data.performers[0].image})`,
+          backgroundImage: `url(${props.data?.performers[0].image})`,
         }}
       ></div>
       <div className="Book__section__output-item__popup-panel">
-        <ImBookmark className="Book__section__output-item__popup-panel-bookicon" />
+        <ImBookmark
+          onClick={() => {
+            localStorage.setItem("historyData", JSON.stringify(newHistoryData));
+
+            props.memory.find((el) => el.id === props.data?.id)
+              ? props.SetMemory((prevState) =>
+                  prevState.filter((el) => el.id !== props.data?.id)
+                )
+              : props.SetMemory((prevState) => [props?.data, ...prevState]);
+          }}
+          className="Book__section__output-item__popup-panel-bookicon"
+          style={{
+            color: `${
+              props.memory.find((el) => el.id === props.data?.id)
+                ? "red"
+                : "black"
+            }`,
+          }}
+        />
         <div
           onClick={() => {
             props.close();
@@ -31,25 +56,25 @@ function PopUpElement(props) {
         </div>
       </div>
       <div className="Book__section__output-item__popup-info-title">
-        <p>{props.data.data.title}</p>
+        <p>{props.data?.title}</p>
         <span>Title of the event</span>
       </div>
       <div className="Book__section__output-item__popup-info-general">
-        <p>{props.data.data.datetime_local.split("T").join(" ")}</p>
-        <p>{props.data.data.datetime_utc.split("T").join(" ")}</p>
+        <p>{props.data?.datetime_local.split("T").join(" ")}</p>
+        <p>{props.data?.datetime_utc.split("T").join(" ")}</p>
         <p>
-          {props.data.data.stats.lowest_price
-            ? props.data.data.stats.lowest_price + "$"
+          {props.data?.stats.lowest_price
+            ? props.data?.stats.lowest_price + "$"
             : "-"}
         </p>
         <p>
-          {props.data.data.stats.average_price
-            ? props.data.data.stats.average_price + "$"
+          {props.data?.stats.average_price
+            ? props.data?.stats.average_price + "$"
             : "-"}
         </p>
         <p>
-          {props.data.data.stats.highest_price
-            ? props.data.data.stats.highest_price + "$"
+          {props.data?.stats.highest_price
+            ? props.data?.stats.highest_price + "$"
             : "-"}
         </p>
         <p>
@@ -60,9 +85,16 @@ function PopUpElement(props) {
         </p>
       </div>
       <div className="Book__section__output-item__popup-panel-place">
-        <p>{props.data.data.venue.address}</p>
-        <p>{props.data.data.venue.name}</p>
-        <button>Add To Cart</button>
+        <p>{props.data?.venue.address}</p>
+        <p>{props.data?.venue.name}</p>
+        <button
+          disabled={
+            props.cart.find((el) => el?.id === props.data.id) && "disabled"
+          }
+          onClick={props.addToCart.bind(null, props.data)}
+        >
+          Add To Cart
+        </button>
       </div>
     </div>
   );

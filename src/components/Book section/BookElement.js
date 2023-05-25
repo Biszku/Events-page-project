@@ -1,17 +1,7 @@
-import { useState } from "react";
-import PopUpElement from "./PopUpElement";
-
 function BookElement(props) {
-  const [IsVisible, SetIsVisible] = useState(false);
   return (
     <div key={props.data.id}>
-      <div
-        onClick={() => {
-          props.disableButton();
-          SetIsVisible(true);
-        }}
-        className="Book__section__output-item"
-      >
+      <div onClick={props.setCurData} className="Book__section__output-item">
         <figure className="Book__section__output-item-img">
           <img
             src={props.data.performers[0].image}
@@ -50,12 +40,6 @@ function BookElement(props) {
         <span>max price</span>
         <span>popularity</span>
       </div>
-      <PopUpElement
-        enableButton={props.enableButton}
-        data={props}
-        visible={IsVisible}
-        close={() => SetIsVisible(false)}
-      />
     </div>
   );
 }

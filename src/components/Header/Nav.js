@@ -1,4 +1,5 @@
 import { Link } from "react-scroll";
+import { ImCart } from "react-icons/im";
 
 function HeaderNav() {
   return (
@@ -43,12 +44,15 @@ function HeaderNav() {
             to="Book__section"
             spy={true}
             smooth={true}
-            offset={-100}
+            offset={-50}
             duration={500}
           >
             Book event
           </Link>
         </li>
+
+        <ImCart className="header__nav-list-item" />
+        <span>1</span>
       </ul>
     </nav>
   );
