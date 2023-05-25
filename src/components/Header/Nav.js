@@ -1,7 +1,7 @@
 import { Link } from "react-scroll";
 import { ImCart } from "react-icons/im";
 
-function HeaderNav() {
+function HeaderNav(props) {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -51,8 +51,8 @@ function HeaderNav() {
           </Link>
         </li>
         <li className="header__nav-list-item">
-          <ImCart className="header__nav-list-item" />
-          <span>1</span>
+          <ImCart onClick={props.SetVisibilityOn} />
+          {props.cart.length !== 0 && <span>{props.cart.length}</span>}
         </li>
       </ul>
     </nav>
