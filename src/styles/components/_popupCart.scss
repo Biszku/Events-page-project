@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   height: 100vh;
   width: 100%;
@@ -14,8 +15,8 @@
 
   &__content {
     width: 90%;
-    height: 80%;
-    background-color: rgba(255, 244, 230, 0.95);
+    height: 80vh;
+    background-color: rgba(255, 244, 230, 1);
     border-radius: 1rem;
 
     position: fixed;
@@ -23,5 +24,67 @@
     left: 50%;
     z-index: 1000;
     transition: all 0.3s;
+
+    display: flex;
+    flex-direction: column;
+
+    &-none {
+      font-size: 7.6rem;
+      font-weight: 700;
+      opacity: 0.1;
+      cursor: pointer;
+      position: absolute;
+      width: max-content;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &-page-container {
+      align-self: flex-start;
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-top: 2rem;
+
+      &_block {
+        background-color: rgba($color: #000000, $alpha: 0.2);
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-number {
+          font-size: 4rem;
+          font-weight: 700;
+          transition: all 0.3s;
+        }
+      }
+      &_pause {
+        height: 0.8rem;
+        border-radius: 100rem;
+        width: 30rem;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    &-1 {
+      height: 100%;
+      display: flex;
+      &_events-container {
+        width: 80%;
+        &_event {
+        }
+      }
+      &_summary-container {
+        width: 20%;
+      }
+    }
   }
 }

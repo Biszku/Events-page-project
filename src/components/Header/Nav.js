@@ -52,7 +52,9 @@ function HeaderNav(props) {
         </li>
         <li className="header__nav-list-item">
           <ImCart onClick={props.SetVisibilityOn} />
-          {props.cart.length !== 0 && <span>{props.cart.length}</span>}
+          {props.cart.length !== 0 && (
+            <span onClick={props.SetVisibilityOn}>{props.cart.length}</span>
+          )}
         </li>
       </ul>
     </nav>

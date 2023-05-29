@@ -9,6 +9,12 @@ function PopUpElement(props) {
     ? historyData.filter((el) => el.id !== props.data?.id)
     : [props?.data, ...historyData];
 
+  const historyCart =
+    localStorage.getItem("cart") === null
+      ? []
+      : JSON.parse(localStorage.getItem("cart"));
+  const newHistoryCart = [props.data, ...historyCart];
+
   return (
     <div
       className="Book__section__output-item__popup"
@@ -89,9 +95,9 @@ function PopUpElement(props) {
         <p>{props.data?.venue.name}</p>
         <button
           disabled={
-            props.cart.find((el) => el?.id === props.data.id) && "disabled"
+            props.cart.find((el) => el?.id === props.data?.id) && "disabled"
           }
-          onClick={props.addToCart.bind(null, props.data)}
+          onClick={props.addToCart.bind(null, props.data, newHistoryCart)}
         >
           Add To Cart
         </button>
