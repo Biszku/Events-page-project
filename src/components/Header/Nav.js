@@ -53,7 +53,9 @@ function HeaderNav(props) {
         <li className="header__nav-list-item">
           <ImCart onClick={props.SetVisibilityOn} />
           {props.cart.length !== 0 && (
-            <span onClick={props.SetVisibilityOn}>{props.cart.length}</span>
+            <span onClick={props.SetVisibilityOn}>
+              {props.cart.reduce((sum, cur) => sum + Number(cur.amount), 0)}
+            </span>
           )}
         </li>
       </ul>

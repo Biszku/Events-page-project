@@ -264,11 +264,12 @@
             );
             transition: all 0.3s;
 
-            &:active {
-              transform: scale(90%);
+            &:disabled {
+              filter: grayscale(100%);
             }
 
-            &:hover {
+            &:not(:disabled):hover {
+              transform: scale(90%);
               background-image: linear-gradient(
                 to bottom right,
                 #fa5252,
@@ -346,7 +347,11 @@
         border-radius: 0rem 100rem 100rem 0rem;
       }
 
-      &:hover {
+      &:disabled {
+        filter: grayscale(100%);
+      }
+
+      &:not(:disabled):hover {
         transform: translateY(-0.3rem);
       }
     }

@@ -43,11 +43,14 @@ function Book(props) {
   const [CurrentEvent, SetCurrentEvent] = useState();
 
   useEffect(() => {
-    console.log(localStorage.getItem("historyData"));
     localStorage.getItem("historyData") === null
       ? SetStorage([])
-      : SetStorage((prevState) =>
-          JSON.parse(localStorage.getItem("historyData"))
+      : SetStorage(() =>
+          JSON.parse(localStorage.getItem("historyData")).filter(
+            (event) =>
+              event.datetime_utc >
+              new Date().toLocaleString("en-US", { timeZone: "UTC" })
+          )
         );
   }, []);
 
@@ -74,8 +77,6 @@ function Book(props) {
       const dataFilteredByTitle = data.events.filter((obj) =>
         obj.title.toLowerCase().includes(state.inputValue.toLowerCase().trim())
       );
-
-      console.log(dataFilteredByTitle);
 
       for (let i = 0; i < dataFilteredByTitle.length; i += 5) {
         const pagesInArray = dataFilteredByTitle.slice(i, i + 5);
@@ -161,7 +162,6 @@ function Book(props) {
           return (
             <div
               onClick={() => {
-                console.log(historyEvent);
                 SetIsVisible(true);
                 SetActiveButton(false);
                 SetCurrentEvent(historyEvent);
@@ -199,6 +199,7 @@ function Book(props) {
                       }`}
                       key={numOfIndex}
                       onClick={() => changePageHandler(numOfIndex)}
+                      disabled={!activeButton && "disabled"}
                     >
                       {numOfIndex + 1}
                     </button>

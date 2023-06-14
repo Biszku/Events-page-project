@@ -1,6 +1,7 @@
 import { ImBookmark } from "react-icons/im";
 
 function PopUpElement(props) {
+  console.log();
   const historyData = !JSON.parse(localStorage.getItem("historyData"))
     ? []
     : JSON.parse(localStorage.getItem("historyData"));
@@ -13,7 +14,7 @@ function PopUpElement(props) {
     localStorage.getItem("cart") === null
       ? []
       : JSON.parse(localStorage.getItem("cart"));
-  const newHistoryCart = [props.data, ...historyCart];
+  const newHistoryCart = [{ ...props.data, amount: 1 }, ...historyCart];
 
   return (
     <div
@@ -94,10 +95,12 @@ function PopUpElement(props) {
         <p>{props.data?.venue.address}</p>
         <p>{props.data?.venue.name}</p>
         <button
-          disabled={
-            props.cart.find((el) => el?.id === props.data?.id) && "disabled"
-          }
           onClick={props.addToCart.bind(null, props.data, newHistoryCart)}
+          disabled={
+            props.data?.stats.lowest_price === null ||
+            props.cart.find((event) => event.id === props.data?.id)?.id ===
+              props.data?.id
+          }
         >
           Add To Cart
         </button>

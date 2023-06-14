@@ -70,16 +70,14 @@
 
         & span {
           cursor: pointer;
-          display: block;
+
           display: flex;
           justify-content: center;
           align-items: center;
           background-color: red;
-          width: 1.5rem;
-          height: 1.5rem;
-          padding: 1rem;
-          border-radius: 50%;
-          font-size: 1.6rem;
+          padding: 0.25rem 0.7rem;
+          border-radius: 100rem;
+          font-size: 1.5rem;
           font-weight: 700;
           position: absolute;
           right: 0%;
