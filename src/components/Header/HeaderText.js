@@ -5,10 +5,8 @@ function HeaderText() {
     <div className="header__text">
       <h1>Great events for everyone</h1>
       <span className="header__text-p">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto
-        impedit possimus pariatur quisquam animi quo quasi consectetur quis
-        nesciunt ipsa modi cum, voluptatem dolore cupiditate tempore ducimus
-        natus distinctio expedita!
+        If you are looking for tickets for various events at the best available
+        price, you've come to the right place. Click below to find out more!
       </span>
       <Link
         to="aboutus__section"

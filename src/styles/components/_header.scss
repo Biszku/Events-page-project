@@ -105,6 +105,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
+    @media (max-width: 57.875em) {
+      width: 100%;
+    }
+
     &-p {
       color: $primary-text-color-dark;
       font-size: 1.8rem;

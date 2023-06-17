@@ -3,6 +3,20 @@
     width: 75%;
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 77.0625em) {
+      flex-direction: column;
+      align-items: center;
+      gap: 5rem;
+    }
+
+    @media (max-width: 44.4375em) {
+      width: 90%;
+    }
+
+    @media (max-width: 27.5em) {
+      width: 90%;
+    }
   }
 
   &__item {
@@ -14,6 +28,18 @@
     border-radius: 0.5rem;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     transition: all 0.3s;
+
+    @media (max-width: 77.0625em) {
+      width: 50%;
+    }
+
+    @media (max-width: 44.4375em) {
+      width: 70%;
+    }
+
+    @media (max-width: 27.5em) {
+      width: 100%;
+    }
 
     &-h3 {
       font-size: 3.6rem;

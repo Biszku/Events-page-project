@@ -1,7 +1,6 @@
-import { ImBookmark } from "react-icons/im";
+import { ImBookmark, ImStarFull } from "react-icons/im";
 
 function PopUpElement(props) {
-  console.log();
   const historyData = !JSON.parse(localStorage.getItem("historyData"))
     ? []
     : JSON.parse(localStorage.getItem("historyData"));
@@ -84,12 +83,29 @@ function PopUpElement(props) {
             ? props.data?.stats.highest_price + "$"
             : "-"}
         </p>
-        <p>
+        <div className="Book__section__output-item__popup-info-general-popularity">
           <span>Popularity: </span>
-        </p>
-        <p>
+          <div
+            className="popularity_container"
+            style={{
+              background: `linear-gradient(to right, #5d5dd5 0%, #5d5dd5 ${
+                props.data?.popularity * 100
+              }%, rgba(255, 255, 255, 0.6) ${props.data?.popularity * 100}%)`,
+            }}
+          >
+            {props.data?.popularity}
+          </div>
+        </div>
+        <div className="Book__section__output-item__popup-info-general-score">
           <span>Score: </span>
-        </p>
+          <div>
+            <ImStarFull className="Book__section__output-item__popup-info-general-score-icon" />
+            <ImStarFull className="Book__section__output-item__popup-info-general-score-icon" />
+            <ImStarFull className="Book__section__output-item__popup-info-general-score-icon" />
+            <ImStarFull className="Book__section__output-item__popup-info-general-score-icon" />
+            <ImStarFull className="Book__section__output-item__popup-info-general-score-icon" />
+          </div>
+        </div>
       </div>
       <div className="Book__section__output-item__popup-panel-place">
         <p>{props.data?.venue.address}</p>
