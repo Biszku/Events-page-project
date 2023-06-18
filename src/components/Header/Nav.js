@@ -1,5 +1,5 @@
 import { Link } from "react-scroll";
-import { ImCart } from "react-icons/im";
+import { ImCart, ImMenu } from "react-icons/im";
 
 function HeaderNav(props) {
   return (
@@ -59,6 +59,7 @@ function HeaderNav(props) {
           )}
         </li>
       </ul>
+      <ImMenu className="header__nav-mobile" />
     </nav>
   );
 }

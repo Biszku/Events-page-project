@@ -21,6 +21,31 @@
   &__nav {
     background-color: $primary-background;
     padding: 2rem 10rem;
+    position: relative;
+
+    @media (max-width: 50.75em) {
+      background-color: transparent;
+      z-index: 1000;
+      position: fixed;
+      top: 5%;
+      left: 0%;
+      width: 100%;
+    }
+
+    &-mobile {
+      position: absolute;
+      top: 50%;
+      padding: 0.5rem;
+      border-radius: 50%;
+      background-color: #e6dfdf;
+      font-size: 4.6rem;
+      right: 5%;
+      transform: translateY(-50%);
+
+      @media (min-width: 50.75em) {
+        display: none;
+      }
+    }
 
     &-list {
       display: flex;
@@ -30,7 +55,19 @@
       position: relative;
 
       @media (max-width: 50.75em) {
-        display: none;
+        position: fixed;
+        opacity: 0;
+        visibility: hidden;
+        width: 100%;
+        height: 100vh;
+        top: 0%;
+        right: 0%;
+        z-index: 10000;
+        backdrop-filter: blur(1rem);
+        background-color: rgba($color: #000000, $alpha: 0.9);
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.3s;
       }
 
       &-item {
@@ -40,16 +77,33 @@
         transition: all 0.3s;
         cursor: pointer;
 
+        @media (max-width: 50.75em) {
+          font-size: 4rem;
+        }
+
         &:nth-child(4) {
           color: $primary-text-color;
           margin-left: auto;
           display: block;
           transform: translateX(25%);
 
-          &:hover {
-            transform: scale(1.2) translateX(25%);
-            & a {
-              padding: 1rem 3rem;
+          @media (max-width: 50.75em) {
+            margin: 0;
+            transform: translateX(0%);
+          }
+
+          & a {
+            @media (max-width: 50.75em) {
+              font-size: 4rem;
+            }
+          }
+
+          @media (min-width: 50.75em) {
+            &:hover {
+              transform: scale(1.2) translateX(25%);
+              & a {
+                padding: 1rem 3rem;
+              }
             }
           }
         }
@@ -71,6 +125,10 @@
 
         font-size: 3.6rem;
         border-bottom: 1px solid transparent;
+
+        @media (max-width: 50.75em) {
+          font-size: 5rem;
+        }
 
         & span {
           cursor: pointer;

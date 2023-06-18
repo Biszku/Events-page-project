@@ -6,5 +6,9 @@
     color: $primary-text-color;
     font-size: 1.4rem;
     padding: 2rem 10rem;
+
+    @media (max-width: 33.625em) {
+      padding: 2rem 3rem;
+    }
   }
 }
