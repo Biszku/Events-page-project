@@ -3,7 +3,7 @@ import { Link } from "react-scroll";
 function HeaderText() {
   return (
     <div className="header__text">
-      <h1>Great events for everyone</h1>
+      <h1 className="header__text-h1">Great events for everyone</h1>
       <span className="header__text-p">
         If you are looking for tickets for various events at the best available
         price, you've come to the right place. Click below to find out more!

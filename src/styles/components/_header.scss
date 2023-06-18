@@ -29,6 +29,10 @@
       gap: 7rem;
       position: relative;
 
+      @media (max-width: 50.75em) {
+        display: none;
+      }
+
       &-item {
         font-size: 2rem;
         transform: scale(1);
@@ -105,8 +109,28 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    @media (max-width: 57.875em) {
+    @media (max-width: 70.375em) {
+      width: 80%;
+    }
+
+    @media (max-width: 44.4375em) {
+      width: 90%;
+    }
+
+    @media (max-width: 30.875em) {
       width: 100%;
+      align-items: center;
+      text-align: center;
+    }
+
+    &-h1 {
+      @media (max-width: 44.4375em) {
+        font-size: 6.2rem;
+      }
+
+      @media (max-width: 23.25em) {
+        font-size: 5.2rem;
+      }
     }
 
     &-p {
@@ -114,6 +138,10 @@
       font-size: 1.8rem;
       line-height: 1.5;
       width: 80%;
+
+      @media (max-width: 44.4375em) {
+        font-size: 1.6rem;
+      }
     }
     a {
       align-self: flex-start;
@@ -124,6 +152,10 @@
       cursor: pointer;
       &:hover {
         border-bottom: 1px solid transparent;
+      }
+
+      @media (max-width: 30.875em) {
+        align-self: center;
       }
     }
   }
