@@ -41,6 +41,7 @@
       font-size: 4.6rem;
       right: 5%;
       transform: translateY(-50%);
+      cursor: pointer;
 
       @media (min-width: 50.75em) {
         display: none;
@@ -68,6 +69,11 @@
         flex-direction: column;
         justify-content: center;
         transition: all 0.3s;
+      }
+
+      &-visible {
+        opacity: 1;
+        visibility: visible;
       }
 
       &-item {

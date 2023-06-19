@@ -1,14 +1,22 @@
 import { Link } from "react-scroll";
+import { useState } from "react";
 import { ImCart, ImMenu } from "react-icons/im";
 
 function HeaderNav(props) {
+  const [visible, setVisible] = useState(false);
+
   return (
     <nav className="header__nav">
-      <ul className="header__nav-list">
+      <ul
+        className={`header__nav-list ${
+          visible ? `header__nav-list-visible` : ``
+        }`}
+      >
         <li className="header__nav-list-item">
           <Link
             to="aboutus__section"
             spy={true}
+            onClick={() => setVisible(false)}
             smooth={true}
             offset={-50}
             duration={500}
@@ -20,6 +28,7 @@ function HeaderNav(props) {
           <Link
             to="Offert__container"
             spy={true}
+            onClick={() => setVisible(false)}
             smooth={true}
             offset={-50}
             duration={500}
@@ -31,6 +40,7 @@ function HeaderNav(props) {
           <Link
             to="Gallery__section"
             spy={true}
+            onClick={() => setVisible(false)}
             smooth={true}
             offset={50}
             duration={500}
@@ -43,6 +53,7 @@ function HeaderNav(props) {
             className="primary-button"
             to="Book__section"
             spy={true}
+            onClick={() => setVisible(false)}
             smooth={true}
             offset={-50}
             duration={500}
@@ -51,15 +62,25 @@ function HeaderNav(props) {
           </Link>
         </li>
         <li className="header__nav-list-item">
-          <ImCart onClick={props.SetVisibilityOn} />
+          <ImCart
+            onClick={() => {
+              setVisible(false);
+              props.SetVisibilityOn();
+            }}
+          />
           {props.cart.length !== 0 && (
-            <span onClick={props.SetVisibilityOn}>
+            <span
+              onClick={() => {
+                setVisible(false);
+                props.SetVisibilityOn();
+              }}
+            >
               {props.cart.reduce((sum, cur) => sum + Number(cur.amount), 0)}
             </span>
           )}
         </li>
       </ul>
-      <ImMenu className="header__nav-mobile" />
+      <ImMenu className="header__nav-mobile" onClick={() => setVisible(true)} />
     </nav>
   );
 }
