@@ -10,8 +10,7 @@ function reducer(state, action) {
       return { ...state, fetchPage: action.payload };
     case "SET_INPUT_VALUE":
       return { ...state, inputValue: action.payload };
-    case "SET_FIRST_LOAD":
-      return { ...state, firstLoad: action.payload };
+
     case "SET_LOADING":
       return { ...state, loading: action.payload };
     case "SET_PAGE":
@@ -28,7 +27,7 @@ function Book(props) {
     events: [],
     fetchPage: 1,
     inputValue: "",
-    firstLoad: true,
+
     loading: false,
     page: 0,
     limitPage: 10,
@@ -87,19 +86,18 @@ function Book(props) {
       dispatch({ type: "SET_LOADING", payload: false });
     };
 
-    if (!state.firstLoad && state.inputValue.trim().length > 0) {
-      const timer = setTimeout(() => fetchData(), 500);
-      return () => {
-        clearInterval(timer);
-        dispatch({ type: "SET_EVENTS", payload: [] });
-        dispatch({ type: "SET_FETCH_PAGE", payload: 1 });
-        dispatch({ type: "SET_PAGE", payload: 0 });
-        dispatch({ type: "LIMIT_PAGE", payload: 10 });
-      };
-    } else {
-      dispatch({ type: "SET_FIRST_LOAD", payload: false });
-    }
-  }, [state.fetchPage, state.inputValue, state.firstLoad]);
+    const timer = setTimeout(
+      () => state.inputValue.trim().length > 0 && fetchData(),
+      500
+    );
+    return () => {
+      clearInterval(timer);
+      dispatch({ type: "SET_EVENTS", payload: [] });
+      dispatch({ type: "SET_FETCH_PAGE", payload: 1 });
+      dispatch({ type: "SET_PAGE", payload: 0 });
+      dispatch({ type: "LIMIT_PAGE", payload: 10 });
+    };
+  }, [state.inputValue]);
 
   // Prev page
   const prevPageHandler = () => {
@@ -161,6 +159,7 @@ function Book(props) {
         {Storage.map((historyEvent) => {
           return (
             <div
+              key={historyEvent.id}
               onClick={() => {
                 SetIsVisible(true);
                 SetActiveButton(false);
@@ -168,7 +167,7 @@ function Book(props) {
               }}
               className="Book__section__asideElement-element"
             >
-              <p>{historyEvent.title}</p>
+              <p>{historyEvent.short_title}</p>
             </div>
           );
         })}

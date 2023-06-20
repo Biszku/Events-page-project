@@ -62,7 +62,7 @@ function PopUpElement(props) {
         </div>
       </div>
       <div className="Book__section__output-item__popup-info-title">
-        <p>{props.data?.title}</p>
+        <p>{props.data?.short_title}</p>
         <span>Title of the event</span>
       </div>
       <div className="Book__section__output-item__popup-info-general">

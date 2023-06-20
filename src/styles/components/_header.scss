@@ -26,6 +26,7 @@
     @media (max-width: 50.75em) {
       background-color: transparent;
       z-index: 1000;
+
       position: fixed;
       top: 5%;
       left: 0%;
@@ -33,13 +34,14 @@
     }
 
     &-mobile {
-      position: absolute;
-      top: 50%;
+      position: fixed;
+      top: 5%;
+      right: 5%;
       padding: 0.5rem;
       border-radius: 50%;
       background-color: #e6dfdf;
+      z-index: 1000;
       font-size: 4.6rem;
-      right: 5%;
       transform: translateY(-50%);
       cursor: pointer;
 

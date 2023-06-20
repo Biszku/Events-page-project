@@ -11,7 +11,9 @@ function BookElement(props) {
           alt={props.data.performers[0].name}
         />
       </figure>
-      <p className="Book__section__output-item_title">{props.data.title}</p>
+      <p className="Book__section__output-item_title">
+        {props.data.short_title}
+      </p>
       <p className="Book__section__output-item_lowest-price">
         {props.data.stats.lowest_price
           ? props.data.stats.lowest_price + "$"

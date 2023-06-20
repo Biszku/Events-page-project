@@ -73,7 +73,7 @@
       &_pause {
         height: 0.8rem;
         border-radius: 100rem;
-        width: 30rem;
+        width: 20%;
         background-color: rgba(0, 0, 0, 0.3);
       }
     }
@@ -137,13 +137,7 @@
                 cursor: pointer;
                 font-size: 2.6rem;
                 color: #222222;
-                transition: all 0.3s;
                 backface-visibility: hidden;
-
-                &:hover {
-                  transform: translateY(-0.1rem);
-                  color: rgba(34, 34, 34, 0.9);
-                }
               }
 
               &-input {
@@ -421,6 +415,10 @@
         margin: 3rem 0rem 0rem 0rem;
         font-size: 3.6rem;
         color: #5c940d;
+
+        @media (max-width: 33.625em) {
+          font-size: 2.8rem;
+        }
       }
 
       &-icon {
@@ -431,6 +429,10 @@
         border: 0.4rem solid #5c940d;
         width: 25rem;
         height: 25rem;
+        @media (max-width: 33.625em) {
+          width: 20rem;
+          height: 20rem;
+        }
       }
     }
 
