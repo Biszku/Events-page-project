@@ -17,7 +17,8 @@
   &__content {
     width: 90%;
     height: 80vh;
-    background-color: rgba(255, 244, 230, 1);
+    background-color: rgba(255, 244, 230, 0.7);
+    backdrop-filter: blur(0.8rem);
     border-radius: 1rem;
     overflow: hidden;
 
@@ -30,6 +31,12 @@
 
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 44.4375em) {
+      width: 100%;
+      height: 100vh;
+      border-radius: 0rem;
+    }
 
     &-none {
       font-size: 7.6rem;
@@ -44,14 +51,14 @@
     }
 
     &-page-container {
-      align-self: flex-start;
-      width: 100%;
+      align-self: center;
+      width: 80%;
 
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 3rem;
-      margin-top: 2rem;
+      padding: 1rem;
 
       &_block {
         background-color: rgba($color: #000000, $alpha: 0.2);
@@ -70,10 +77,11 @@
           backface-visibility: hidden;
         }
       }
+
       &_pause {
         height: 0.8rem;
         border-radius: 100rem;
-        width: 20%;
+        flex: 1;
         background-color: rgba(0, 0, 0, 0.3);
       }
     }
@@ -81,17 +89,32 @@
     &-1 {
       height: 90%;
       display: flex;
+      flex: 1;
 
       transition: all 0.6s;
       backface-visibility: hidden;
 
+      @media (max-width: 63.6875em) {
+        flex-direction: column;
+      }
+
       &_events-container {
-        width: 70%;
         padding: 5rem;
+        width: 70%;
 
         display: grid;
         grid-template-columns: 4fr 2fr 2fr 2fr 1fr;
         grid-template-rows: auto 1fr;
+
+        @media (max-width: 63.6875em) {
+          width: 100%;
+          padding: 5rem 5rem 0rem 5rem;
+          height: 50%;
+        }
+
+        @media (max-width: 44.4375em) {
+          padding: 5rem 1rem 0rem 1rem;
+        }
 
         &-upbar {
           font-size: 1.6rem;
@@ -110,10 +133,14 @@
             grid-template-columns: 4fr 2fr 2fr 2fr 1fr;
             border-radius: 1rem;
             overflow: hidden;
-            background-color: #e6dccf;
+            background-color: rgba(230, 220, 207, 0.7);
             margin-top: 1rem;
             align-items: center;
             font-size: 1.6rem;
+
+            & p {
+              padding: 1rem;
+            }
 
             &-quantity {
               display: flex;
@@ -177,17 +204,37 @@
                 width: 60%;
                 font-size: 1.8rem;
                 font-weight: 500;
+
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
               }
             }
           }
         }
       }
       &_summary-container {
+        padding: 5rem;
+        margin-left: 5rem;
         display: flex;
         flex-direction: column;
-        padding: 5rem;
+
         width: 30%;
         gap: 1rem;
+
+        @media (max-width: 63.6875em) {
+          align-items: center;
+          width: 100%;
+          height: 50%;
+          justify-content: space-between;
+          gap: 0rem;
+          margin: 0rem;
+        }
+
+        @media (max-width: 25.4375em) {
+          padding: 5rem 0rem;
+        }
 
         &-summaryHeader {
           cursor: default;
@@ -211,20 +258,24 @@
 
             &-saved {
               font-size: 2rem;
-              color: #66a80f;
+              color: #2b8a3e;
             }
           }
 
           &:nth-child(2) {
             margin-top: 5rem;
+
+            @media (max-width: 63.6875em) {
+              margin: 0;
+            }
           }
         }
 
         &-summaryButton {
           cursor: pointer;
-          font-size: 2.6rem;
+          font-size: clamp(1.8rem, 2.5vw, 2.6rem);
           font-weight: 700;
-          padding: 2rem 0rem;
+          padding: 2rem;
           border: none;
           text-transform: uppercase;
           color: $primary-text-color;
@@ -240,6 +291,10 @@
           &:not(:disabled):hover {
             background-color: #4c4cc4;
             transform: translateY(-0.1rem);
+          }
+
+          @media (max-width: 63.6875em) {
+            margin: 0rem;
           }
         }
       }

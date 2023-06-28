@@ -36,9 +36,7 @@ function BookElement(props) {
             props.data.popularity * 100
           }%, rgba(255, 255, 255, 0.6) ${props.data.popularity * 100}%)`,
         }}
-      >
-        {props.data.popularity}
-      </div>
+      ></div>
       <span className="Book__section__output-item_name">name</span>
       <span className="Book__section__output-item_min-price-span">
         min price

@@ -1,6 +1,12 @@
 import { ImBookmark, ImStarFull } from "react-icons/im";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { Icon } from "leaflet";
 
 function PopUpElement(props) {
+  const lat = props.data?.venue.location.lat || 37;
+  const lon = props.data?.venue.location.lon || -95;
+
   const historyData = !JSON.parse(localStorage.getItem("historyData"))
     ? []
     : JSON.parse(localStorage.getItem("historyData"));
@@ -14,6 +20,11 @@ function PopUpElement(props) {
       ? []
       : JSON.parse(localStorage.getItem("cart"));
   const newHistoryCart = [{ ...props.data, amount: 1 }, ...historyCart];
+
+  const customIcon = new Icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/128/684/684908.png",
+    iconSize: [38, 38],
+  });
 
   return (
     <div
@@ -86,15 +97,13 @@ function PopUpElement(props) {
         <div className="Book__section__output-item__popup-info-general-popularity">
           <span>Popularity: </span>
           <div
-            className="popularity_container"
+            className="popularity_container popularity_container-popup"
             style={{
               background: `linear-gradient(to right, #5d5dd5 0%, #5d5dd5 ${
                 props.data?.popularity * 100
               }%, rgba(255, 255, 255, 0.6) ${props.data?.popularity * 100}%)`,
             }}
-          >
-            {props.data?.popularity}
-          </div>
+          ></div>
         </div>
         <div className="Book__section__output-item__popup-info-general-score">
           <span>Score: </span>
@@ -108,8 +117,17 @@ function PopUpElement(props) {
         </div>
       </div>
       <div className="Book__section__output-item__popup-panel-place">
-        <p>{props.data?.venue.address}</p>
+        <p>{`${props.data?.venue.city}, ${props.data?.venue.address}`}</p>
         <p>{props.data?.venue.name}</p>
+
+        <MapContainer key={props.data?.id} center={[lat, lon]} zoom={15}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[lat, lon]} icon={customIcon}></Marker>
+        </MapContainer>
+
         <button
           onClick={props.addToCart.bind(null, props.data, newHistoryCart)}
           disabled={

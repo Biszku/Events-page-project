@@ -189,7 +189,7 @@ function Book(props) {
               state.events.map((arr, numOfIndex) => {
                 if (
                   numOfIndex < state.limitPage &&
-                  numOfIndex >= state.limitPage - 11
+                  numOfIndex >= state.limitPage - 10
                 )
                   return (
                     <button

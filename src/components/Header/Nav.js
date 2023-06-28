@@ -7,12 +7,8 @@ function HeaderNav(props) {
 
   return (
     <>
-      <nav className="header__nav">
-        <ul
-          className={`header__nav-list ${
-            visible ? `header__nav-list-visible` : ``
-          }`}
-        >
+      <nav className={`header__nav ${visible ? `header__nav-visible` : ``} `}>
+        <ul className="header__nav-list">
           <li className="header__nav-list-item">
             <Link
               to="aboutus__section"
@@ -82,7 +78,10 @@ function HeaderNav(props) {
           </li>
         </ul>
       </nav>
-      <ImMenu className="header__nav-mobile" onClick={() => setVisible(true)} />
+      <ImMenu
+        className="header__nav-mobile"
+        onClick={() => setVisible((prevState) => !prevState)}
+      />
     </>
   );
 }
