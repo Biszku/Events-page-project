@@ -42,8 +42,8 @@
 
     &-mobile {
       position: fixed;
-      top: 3.5%;
-      left: 2%;
+      top: 3.5rem;
+      left: 1.5rem;
       padding: 0.5rem;
       border-radius: 50%;
       background-color: #e6dfdf;
@@ -141,7 +141,7 @@
 
         & span {
           cursor: pointer;
-
+          user-select: none;
           display: flex;
           justify-content: center;
           align-items: center;

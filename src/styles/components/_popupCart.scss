@@ -41,13 +41,15 @@
     &-none {
       font-size: 7.6rem;
       font-weight: 700;
+      padding: 1rem;
+      width: 100%;
       opacity: 0.1;
       cursor: pointer;
       position: absolute;
-      width: max-content;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      text-align: center;
     }
 
     &-page-container {
@@ -216,7 +218,7 @@
       }
       &_summary-container {
         padding: 5rem;
-        margin-left: 5rem;
+
         display: flex;
         flex-direction: column;
 
@@ -339,7 +341,7 @@
           justify-content: center;
 
           padding: 2rem;
-          background-color: #e6dccf;
+          background-color: rgba(230, 220, 207, 0.7);
           border-radius: 1rem;
 
           & p {
