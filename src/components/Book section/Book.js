@@ -55,8 +55,11 @@ function Book(props) {
 
   //Data fetching
   useEffect(() => {
+    let loading = false;
     const fetchData = async () => {
       dispatch({ type: "SET_LOADING", payload: true });
+      loading = true;
+
       const tempArr = [];
       const res = await fetch(
         `https://api.seatgeek.com/2/events?per_page=5000&page=${state.fetchPage}&q=${state.inputValue}`,
@@ -82,8 +85,11 @@ function Book(props) {
         tempArr.push(pagesInArray);
       }
 
-      dispatch({ type: "SET_EVENTS", payload: tempArr });
+      if (loading) {
+        dispatch({ type: "SET_EVENTS", payload: tempArr });
+      }
       dispatch({ type: "SET_LOADING", payload: false });
+      loading = false;
     };
 
     const timer = setTimeout(
@@ -96,6 +102,8 @@ function Book(props) {
       dispatch({ type: "SET_FETCH_PAGE", payload: 1 });
       dispatch({ type: "SET_PAGE", payload: 0 });
       dispatch({ type: "LIMIT_PAGE", payload: 10 });
+      dispatch({ type: "SET_LOADING", payload: false });
+      loading = false;
     };
   }, [state.inputValue]);
 
@@ -145,6 +153,7 @@ function Book(props) {
           state.events[state.page].map((el) => {
             return (
               <BookElement
+                key={el.id}
                 data={el}
                 setCurData={() => {
                   SetIsVisible(true);

@@ -372,351 +372,365 @@ function App() {
             </div>
           </div>
         )}
-        <div
-          style={{
-            transform: `translateX(${200 - transaction.page * 100}vw)`,
-            visibility: `${transaction.page === 2 ? "visible" : "invisible"}`,
-            opacity: `${transaction.page === 2 ? "1" : "0"}`,
-          }}
-          className="popup-cart__content-2"
-        >
-          <div className="popup-cart__content-2_form">
-            <div className="popup-cart__content-2_form-item">
-              <p>First Name </p>
-              <input
-                className="popup-cart__content-2_form-item-input"
-                placeholder="John/Jane"
-                type="text"
-                onChange={(e) => {
-                  if (
-                    e.target.value[e.target.value.length - 1] === " " &&
-                    e.target.value[e.target.value.length - 2] === " "
-                  )
-                    e.target.value = e.target.value.slice(
-                      0,
-                      e.target.value.length - 1
-                    );
-                  const FirstnamePattern =
-                    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
-                  if (
-                    FirstnamePattern.test(e.target.value) &&
-                    e.target.value.trim() !== ""
-                  )
-                    return setTransaction((prevState) => {
-                      return {
-                        ...prevState,
-                        firstname: { value: e.target.value, valid: true },
-                      };
-                    });
-                  return setTransaction((prevState) => {
-                    return {
-                      ...prevState,
-                      firstname: { value: e.target.value, valid: false },
-                    };
-                  });
-                }}
-              />
-              <p>Last Name </p>
-              <input
-                className="popup-cart__content-2_form-item-input"
-                placeholder="Doe"
-                type="text"
-                onChange={(e) => {
-                  if (
-                    e.target.value[e.target.value.length - 1] === " " &&
-                    e.target.value[e.target.value.length - 2] === " "
-                  )
-                    e.target.value = e.target.value.slice(
-                      0,
-                      e.target.value.length - 1
-                    );
-                  const LastnamePattern =
-                    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
-                  if (
-                    LastnamePattern.test(e.target.value) &&
-                    e.target.value.trim() !== ""
-                  )
-                    return setTransaction((prevState) => {
-                      return {
-                        ...prevState,
-                        lastname: { value: e.target.value.trim(), valid: true },
-                      };
-                    });
-                  return setTransaction((prevState) => {
-                    return {
-                      ...prevState,
-                      lastname: { value: e.target.value.trim(), valid: false },
-                    };
-                  });
-                }}
-              />
-            </div>
-            <div className="popup-cart__content-2_form-item">
-              <p>Email </p>
-              <input
-                className="popup-cart__content-2_form-item-input"
-                placeholder="anonymou@gmail.com"
-                type="email"
-                onChange={(e) => {
-                  if (
-                    e.target.value[e.target.value.length - 1] === " " &&
-                    e.target.value[e.target.value.length - 2] === " "
-                  )
-                    e.target.value = e.target.value.slice(
-                      0,
-                      e.target.value.length - 1
-                    );
 
-                  if (
-                    e.target.value.includes("@") &&
-                    e.target.value.trim() !== ""
-                  )
+        {cart.length !== 0 && (
+          <div
+            style={{
+              transform: `translateX(${200 - transaction.page * 100}vw)`,
+              visibility: `${transaction.page === 2 ? "visible" : "invisible"}`,
+              opacity: `${transaction.page === 2 ? "1" : "0"}`,
+            }}
+            className="popup-cart__content-2"
+          >
+            <div className="popup-cart__content-2_form">
+              <div className="popup-cart__content-2_form-item">
+                <p>First Name </p>
+                <input
+                  className="popup-cart__content-2_form-item-input"
+                  placeholder="John/Jane"
+                  type="text"
+                  onChange={(e) => {
+                    if (
+                      e.target.value[e.target.value.length - 1] === " " &&
+                      e.target.value[e.target.value.length - 2] === " "
+                    )
+                      e.target.value = e.target.value.slice(
+                        0,
+                        e.target.value.length - 1
+                      );
+                    const FirstnamePattern =
+                      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+                    if (
+                      FirstnamePattern.test(e.target.value) &&
+                      e.target.value.trim() !== ""
+                    )
+                      return setTransaction((prevState) => {
+                        return {
+                          ...prevState,
+                          firstname: { value: e.target.value, valid: true },
+                        };
+                      });
                     return setTransaction((prevState) => {
                       return {
                         ...prevState,
-                        email: { value: e.target.value.trim(), valid: true },
+                        firstname: { value: e.target.value, valid: false },
                       };
                     });
-                  return setTransaction((prevState) => {
-                    return {
-                      ...prevState,
-                      email: { value: e.target.value.trim(), valid: false },
-                    };
-                  });
-                }}
-              />
-              <p>Phone Number </p>
-              <input
-                className="popup-cart__content-2_form-item-input"
-                placeholder="+12 345 678 912"
-                type="tel"
-                onChange={(e) => {
-                  if (
-                    e.target.value[e.target.value.length - 1] === " " &&
-                    e.target.value[e.target.value.length - 2] === " "
-                  )
-                    e.target.value = e.target.value.slice(
-                      0,
-                      e.target.value.length - 1
-                    );
-                  const PhoneNumberPattern = /^[0-9+]+$/u;
-                  if (
-                    PhoneNumberPattern.test(e.target.value) &&
-                    e.target.value.trim() !== ""
-                  )
+                  }}
+                />
+                <p>Last Name </p>
+                <input
+                  className="popup-cart__content-2_form-item-input"
+                  placeholder="Doe"
+                  type="text"
+                  onChange={(e) => {
+                    if (
+                      e.target.value[e.target.value.length - 1] === " " &&
+                      e.target.value[e.target.value.length - 2] === " "
+                    )
+                      e.target.value = e.target.value.slice(
+                        0,
+                        e.target.value.length - 1
+                      );
+                    const LastnamePattern =
+                      /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+                    if (
+                      LastnamePattern.test(e.target.value) &&
+                      e.target.value.trim() !== ""
+                    )
+                      return setTransaction((prevState) => {
+                        return {
+                          ...prevState,
+                          lastname: {
+                            value: e.target.value.trim(),
+                            valid: true,
+                          },
+                        };
+                      });
+                    return setTransaction((prevState) => {
+                      return {
+                        ...prevState,
+                        lastname: {
+                          value: e.target.value.trim(),
+                          valid: false,
+                        },
+                      };
+                    });
+                  }}
+                />
+              </div>
+              <div className="popup-cart__content-2_form-item">
+                <p>Email </p>
+                <input
+                  className="popup-cart__content-2_form-item-input"
+                  placeholder="anonymou@gmail.com"
+                  type="email"
+                  onChange={(e) => {
+                    if (
+                      e.target.value[e.target.value.length - 1] === " " &&
+                      e.target.value[e.target.value.length - 2] === " "
+                    )
+                      e.target.value = e.target.value.slice(
+                        0,
+                        e.target.value.length - 1
+                      );
+
+                    if (
+                      e.target.value.includes("@") &&
+                      e.target.value.trim() !== ""
+                    )
+                      return setTransaction((prevState) => {
+                        return {
+                          ...prevState,
+                          email: { value: e.target.value.trim(), valid: true },
+                        };
+                      });
+                    return setTransaction((prevState) => {
+                      return {
+                        ...prevState,
+                        email: { value: e.target.value.trim(), valid: false },
+                      };
+                    });
+                  }}
+                />
+                <p>Phone Number </p>
+                <input
+                  className="popup-cart__content-2_form-item-input"
+                  placeholder="+12 345 678 912"
+                  type="tel"
+                  onChange={(e) => {
+                    if (
+                      e.target.value[e.target.value.length - 1] === " " &&
+                      e.target.value[e.target.value.length - 2] === " "
+                    )
+                      e.target.value = e.target.value.slice(
+                        0,
+                        e.target.value.length - 1
+                      );
+                    const PhoneNumberPattern = /^[0-9+]+$/u;
+                    if (
+                      PhoneNumberPattern.test(e.target.value) &&
+                      e.target.value.trim() !== ""
+                    )
+                      return setTransaction((prevState) => {
+                        return {
+                          ...prevState,
+                          phoneNumber: {
+                            value: e.target.value.trim(),
+                            valid: true,
+                          },
+                        };
+                      });
                     return setTransaction((prevState) => {
                       return {
                         ...prevState,
                         phoneNumber: {
                           value: e.target.value.trim(),
-                          valid: true,
+                          valid: false,
                         },
                       };
                     });
-                  return setTransaction((prevState) => {
-                    return {
-                      ...prevState,
-                      phoneNumber: {
-                        value: e.target.value.trim(),
-                        valid: false,
-                      },
-                    };
-                  });
-                }}
-              />
-            </div>
-            <div className="popup-cart__content-2_form-item">
-              <p>Address </p>
-              <textarea
-                placeholder="Enter address"
-                className="popup-cart__content-2_form-item-input popup-cart__content-2_form-textarea"
-                rows="2"
-                cols="50"
-                onChange={(e) => {
-                  if (
-                    e.target.value[e.target.value.length - 1] === " " &&
-                    e.target.value[e.target.value.length - 2] === " "
-                  )
-                    e.target.value = e.target.value.slice(
-                      0,
-                      e.target.value.length - 1
-                    );
+                  }}
+                />
+              </div>
+              <div className="popup-cart__content-2_form-item">
+                <p>Address </p>
+                <textarea
+                  placeholder="Enter address"
+                  className="popup-cart__content-2_form-item-input popup-cart__content-2_form-textarea"
+                  rows="2"
+                  cols="50"
+                  onChange={(e) => {
+                    if (
+                      e.target.value[e.target.value.length - 1] === " " &&
+                      e.target.value[e.target.value.length - 2] === " "
+                    )
+                      e.target.value = e.target.value.slice(
+                        0,
+                        e.target.value.length - 1
+                      );
 
-                  if (e.target.value.trim() !== "")
+                    if (e.target.value.trim() !== "")
+                      return setTransaction((prevState) => {
+                        return {
+                          ...prevState,
+                          address: {
+                            value: e.target.value.trim(),
+                            valid: true,
+                          },
+                        };
+                      });
                     return setTransaction((prevState) => {
                       return {
                         ...prevState,
                         address: {
                           value: e.target.value.trim(),
-                          valid: true,
+                          valid: false,
                         },
                       };
                     });
-                  return setTransaction((prevState) => {
-                    return {
-                      ...prevState,
-                      address: {
-                        value: e.target.value.trim(),
-                        valid: false,
-                      },
-                    };
-                  });
-                }}
-              />
-              <p>Postal code </p>
-              <input
-                className="popup-cart__content-2_form-item-input"
-                placeholder="Enter postal code"
-                type="text"
-                onChange={(e) => {
-                  if (
-                    e.target.value[e.target.value.length - 1] === " " &&
-                    e.target.value[e.target.value.length - 2] === " "
-                  )
-                    e.target.value = e.target.value.slice(
-                      0,
-                      e.target.value.length - 1
-                    );
+                  }}
+                />
+                <p>Postal code </p>
+                <input
+                  className="popup-cart__content-2_form-item-input"
+                  placeholder="Enter postal code"
+                  type="text"
+                  onChange={(e) => {
+                    if (
+                      e.target.value[e.target.value.length - 1] === " " &&
+                      e.target.value[e.target.value.length - 2] === " "
+                    )
+                      e.target.value = e.target.value.slice(
+                        0,
+                        e.target.value.length - 1
+                      );
 
-                  const PhoneNumberPattern = /^[0-9A-Z-]+$/u;
+                    const PhoneNumberPattern = /^[0-9A-Z-]+$/u;
 
-                  if (
-                    PhoneNumberPattern.test(e.target.value) &&
-                    e.target.value.trim() !== ""
-                  )
+                    if (
+                      PhoneNumberPattern.test(e.target.value) &&
+                      e.target.value.trim() !== ""
+                    )
+                      return setTransaction((prevState) => {
+                        return {
+                          ...prevState,
+                          postalCode: {
+                            value: e.target.value.trim(),
+                            valid: true,
+                          },
+                        };
+                      });
                     return setTransaction((prevState) => {
                       return {
                         ...prevState,
                         postalCode: {
                           value: e.target.value.trim(),
-                          valid: true,
+                          valid: false,
                         },
                       };
                     });
-                  return setTransaction((prevState) => {
-                    return {
-                      ...prevState,
-                      postalCode: {
-                        value: e.target.value.trim(),
-                        valid: false,
-                      },
-                    };
-                  });
-                }}
-              />
+                  }}
+                />
+              </div>
             </div>
-          </div>
-          <div className="popup-cart__content-2_delivery">
-            <p className="popup-cart__content-2_delivery-header">
-              Delivery Type
-            </p>
-            <form className="popup-cart__content-2_delivery_form">
-              <div className="popup-cart__content-2_delivery_form-item">
-                <input
-                  style={{
-                    display: "none",
-                  }}
-                  className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
-                  type="radio"
-                  name="delivery"
-                  id="Radio1"
-                />
-                <label htmlFor="Radio1">
-                  <div
-                    className="popup-cart__content-2_delivery_form-item-radio-style"
-                    value="Courier Delivery (online payment)"
-                    onClick={(e) => {
-                      setTransaction((prevState) => {
-                        return {
-                          ...prevState,
-                          deliveryType: {
-                            value: e.target.value,
-                            valid: true,
-                          },
-                        };
-                      });
+            <div className="popup-cart__content-2_delivery">
+              <p className="popup-cart__content-2_delivery-header">
+                Delivery Type
+              </p>
+              <form className="popup-cart__content-2_delivery_form">
+                <div className="popup-cart__content-2_delivery_form-item">
+                  <input
+                    style={{
+                      display: "none",
                     }}
-                  ></div>
-                </label>
-                <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
-                <span className="popup-cart__content-2_delivery_form-item-text">
-                  {`Courier Delivery (online payment)`}
-                </span>
-              </div>
-              <div className="popup-cart__content-2_delivery_form-item">
-                <input
-                  style={{
-                    display: "none",
-                  }}
-                  className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
-                  type="radio"
-                  name="delivery"
-                  id="Radio2"
-                />
-                <label htmlFor="Radio2">
-                  <div
-                    className="popup-cart__content-2_delivery_form-item-radio-style"
-                    value="Courier Delivery (cash on delivery)"
-                    onClick={(e) => {
-                      setTransaction((prevState) => {
-                        return {
-                          ...prevState,
-                          deliveryType: {
-                            value: e.target.value,
-                            valid: true,
-                          },
-                        };
-                      });
+                    className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
+                    type="radio"
+                    name="delivery"
+                    id="Radio1"
+                  />
+                  <label htmlFor="Radio1">
+                    <div
+                      className="popup-cart__content-2_delivery_form-item-radio-style"
+                      value="Courier Delivery (online payment)"
+                      onClick={(e) => {
+                        setTransaction((prevState) => {
+                          return {
+                            ...prevState,
+                            deliveryType: {
+                              value: e.target.value,
+                              valid: true,
+                            },
+                          };
+                        });
+                      }}
+                    ></div>
+                  </label>
+                  <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
+                  <span className="popup-cart__content-2_delivery_form-item-text">
+                    {`Courier Delivery (online payment)`}
+                  </span>
+                </div>
+                <div className="popup-cart__content-2_delivery_form-item">
+                  <input
+                    style={{
+                      display: "none",
                     }}
-                  ></div>
-                </label>
-                <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
-                <span className="popup-cart__content-2_delivery_form-item-text">
-                  {`Courier Delivery (cash on delivery)`}
-                </span>
-              </div>
-            </form>
-          </div>
-          <button
-            disabled={
-              !transaction.firstname.valid ||
-              !transaction.lastname.valid ||
-              !transaction.email.valid ||
-              !transaction.phoneNumber.valid ||
-              !transaction.address.valid ||
-              !transaction.postalCode.valid ||
-              !transaction.deliveryType.valid
-            }
-            onClick={() => {
-              document
-                .querySelectorAll(".popup-cart__content-2_form-item-input")
-                .forEach((e) => {
-                  if (e.placeholder) return (e.value = "");
-                  return (e.checked = false);
+                    className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
+                    type="radio"
+                    name="delivery"
+                    id="Radio2"
+                  />
+                  <label htmlFor="Radio2">
+                    <div
+                      className="popup-cart__content-2_delivery_form-item-radio-style"
+                      value="Courier Delivery (cash on delivery)"
+                      onClick={(e) => {
+                        setTransaction((prevState) => {
+                          return {
+                            ...prevState,
+                            deliveryType: {
+                              value: e.target.value,
+                              valid: true,
+                            },
+                          };
+                        });
+                      }}
+                    ></div>
+                  </label>
+                  <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
+                  <span className="popup-cart__content-2_delivery_form-item-text">
+                    {`Courier Delivery (cash on delivery)`}
+                  </span>
+                </div>
+              </form>
+            </div>
+            <button
+              disabled={
+                !transaction.firstname.valid ||
+                !transaction.lastname.valid ||
+                !transaction.email.valid ||
+                !transaction.phoneNumber.valid ||
+                !transaction.address.valid ||
+                !transaction.postalCode.valid ||
+                !transaction.deliveryType.valid
+              }
+              onClick={() => {
+                document
+                  .querySelectorAll(".popup-cart__content-2_form-item-input")
+                  .forEach((e) => {
+                    if (e.placeholder) return (e.value = "");
+                    return (e.checked = false);
+                  });
+                setTransaction((prevState) => {
+                  return {
+                    ...prevState,
+                    page: prevState?.page + 1,
+                  };
                 });
-              setTransaction((prevState) => {
-                return {
-                  ...prevState,
-                  page: prevState?.page + 1,
-                };
-              });
+              }}
+              className="popup-cart__content-2-btn"
+            >
+              Finish Transaction
+            </button>
+          </div>
+        )}
+
+        {cart.length !== 0 && (
+          <div
+            style={{
+              transform: `translateX(${300 - transaction.page * 100}vw)`,
+              visibility: `${transaction.page === 3 ? "visible" : "invisible"}`,
+              opacity: `${transaction.page === 3 ? "1" : "0"}`,
             }}
-            className="popup-cart__content-2-btn"
+            className="popup-cart__content-3"
           >
-            Finish Transaction
-          </button>
-        </div>
-        <div
-          style={{
-            transform: `translateX(${300 - transaction.page * 100}vw)`,
-            visibility: `${transaction.page === 3 ? "visible" : "invisible"}`,
-            opacity: `${transaction.page === 3 ? "1" : "0"}`,
-          }}
-          className="popup-cart__content-3"
-        >
-          <ImCheckmark className="popup-cart__content-3-icon" />
-          <p className="popup-cart__content-3-text">Thanks for test my app!</p>
-        </div>
+            <ImCheckmark className="popup-cart__content-3-icon" />
+            <p className="popup-cart__content-3-text">
+              Thanks for test my app!
+            </p>
+          </div>
+        )}
         {cart.length === 0 && (
           <span className="popup-cart__content-none">
             There Is Nothing In The Cart

@@ -1,10 +1,6 @@
 function BookElement(props) {
   return (
-    <div
-      key={props.data.id}
-      onClick={props.setCurData}
-      className="Book__section__output-item"
-    >
+    <div onClick={props.setCurData} className="Book__section__output-item">
       <figure className="Book__section__output-item-img">
         <img
           src={props.data.performers[0].image}
