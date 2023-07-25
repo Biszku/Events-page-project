@@ -97,7 +97,7 @@
 
         @media (max-width: 58.8125em) {
           width: 100%;
-          height: 100vh;
+          min-height: 100%;
         }
 
         &-img {
@@ -384,21 +384,23 @@
         }
       }
 
+      &_title {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
       & p {
         font-weight: bold;
         font-size: 1.6rem;
         align-self: flex-end;
 
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-
         &:nth-child(2) {
           width: 90%;
           @media (max-width: 38.6875em) {
             width: 100%;
-            padding: 1rem;
+            padding: 0rem 1rem;
             align-self: center;
             grid-column: 2/-1;
           }
@@ -578,6 +580,10 @@
 
   &-popup {
     align-self: center;
+
+    @media (max-width: 44.4375em) {
+      display: block;
+    }
   }
 }
 
