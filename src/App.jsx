@@ -11,9 +11,9 @@ import {
 } from "react-icons/im";
 
 import HeaderSection from "./components/Header/MainHeader";
-import AboutUs from "./components/About us Section/AboutUs";
+import AboutUs from "./components/aboutUsSection/AboutUs";
 import Offert from "./components/Offert/Offert";
-import BookSection from "./components/Book section/Book";
+import BookSection from "./components/bookSection/Book";
 import GallerySection from "./components/Gallery/Gallery";
 import Footer from "./components/Footer/Footer";
 
@@ -133,10 +133,7 @@ function App() {
 
   return (
     <div className="container">
-      <HeaderSection
-        cart={cart}
-        SetVisibilityOn={() => dispatch(setVisibility(true))}
-      />
+      <HeaderSection cart={cart} />
       <main>
         <AboutUs />
         <Offert />

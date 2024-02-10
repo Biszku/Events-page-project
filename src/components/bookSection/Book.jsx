@@ -26,7 +26,6 @@ function Book(props) {
     events: [],
     fetchPage: 1,
     inputValue: "",
-
     loading: false,
     page: 0,
     limitPage: 10,
