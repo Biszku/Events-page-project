@@ -140,13 +140,11 @@ function Book(props) {
         {state.loading && <div className="spinner spinner-input"></div>}
       </div>
       <div className="Book__section__output">
-        {state.events.length === 0 &&
-          state.loading === false &&
-          state.inputValue !== "" && (
-            <div className="noResultContainer">
-              <p>No results...</p>
-            </div>
-          )}
+        {!state.events.length && !state.loading && state.inputValue && (
+          <div className="noResultContainer">
+            <p>No results...</p>
+          </div>
+        )}
         {state.events.length > 0 &&
           state.events[state.page].map((el) => {
             return (
