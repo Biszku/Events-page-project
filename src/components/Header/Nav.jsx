@@ -1,10 +1,11 @@
 import { Link } from "react-scroll";
 import { useState } from "react";
 import { ImCart, ImMenu } from "react-icons/im";
-import { createSlice } from "@reduxjs/toolkit";
-
+import { useDispatch } from "react-redux";
+import { setVisibility } from "../../features/visibility/cartVisibility";
 function HeaderNav(props) {
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -63,7 +64,7 @@ function HeaderNav(props) {
             <ImCart
               onClick={() => {
                 setVisible(false);
-                props.SetVisibilityOn();
+                dispatch(setVisibility(true));
               }}
             />
             {props.cart.length !== 0 && (

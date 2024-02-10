@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setVisibility } from "./features/visibility/cartVisibility";
 import {
   ImBin,
   ImCircleLeft,
@@ -16,8 +18,10 @@ import GallerySection from "./components/Gallery/Gallery";
 import Footer from "./components/Footer/Footer";
 
 function App() {
+  const visibility = useSelector((state) => state.cartVisibility.value);
+  const dispatch = useDispatch();
+
   const [cart, setCart] = useState([]);
-  const [visibility, setVisibility] = useState(false);
   const [transaction, setTransaction] = useState({
     page: 1,
     firstname: { value: "", valid: false },
@@ -37,7 +41,7 @@ function App() {
 
   document.body.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
-      setVisibility(false);
+      dispatch(setVisibility(false));
       if (transaction.page === 3) {
         setCart([]);
         localStorage.clear("cart");
@@ -129,7 +133,10 @@ function App() {
 
   return (
     <div className="container">
-      <HeaderSection cart={cart} SetVisibilityOn={() => setVisibility(true)} />
+      <HeaderSection
+        cart={cart}
+        SetVisibilityOn={() => dispatch(setVisibility(true))}
+      />
       <main>
         <AboutUs />
         <Offert />
@@ -150,7 +157,7 @@ function App() {
           transform: visibility ? "translateY(0vh)" : "translateY(180vh)",
         }}
         onClick={() => {
-          setVisibility(false);
+          dispatch(setVisibility(false));
           if (transaction.page === 3) {
             setCart([]);
             localStorage.clear("cart");
@@ -739,7 +746,7 @@ function App() {
 
         <div
           onClick={() => {
-            setVisibility(false);
+            dispatch(setVisibility(false));
             if (transaction.page === 3) {
               setCart([]);
               localStorage.clear("cart");
