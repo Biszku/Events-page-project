@@ -9,11 +9,11 @@ import {
 } from "react-icons/im";
 
 import HeaderSection from "./components/Header/MainHeader";
-import Footer from "./components/Footer/Footer";
 import AboutUs from "./components/About us Section/AboutUs";
+import Offert from "./components/Offert/Offert";
 import BookSection from "./components/Book section/Book";
 import GallerySection from "./components/Gallery/Gallery";
-import Offert from "./components/Offert/Offert";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [cart, setCart] = useState([]);
