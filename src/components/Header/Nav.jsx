@@ -1,6 +1,7 @@
 import { Link } from "react-scroll";
 import { useState } from "react";
 import { ImCart, ImMenu } from "react-icons/im";
+import { createSlice } from "@reduxjs/toolkit";
 
 function HeaderNav(props) {
   const [visible, setVisible] = useState(false);

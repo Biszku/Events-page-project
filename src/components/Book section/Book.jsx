@@ -10,7 +10,6 @@ function reducer(state, action) {
       return { ...state, fetchPage: action.payload };
     case "SET_INPUT_VALUE":
       return { ...state, inputValue: action.payload };
-
     case "SET_LOADING":
       return { ...state, loading: action.payload };
     case "SET_PAGE":
