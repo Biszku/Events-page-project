@@ -1,39 +1,19 @@
-import { useEffect, useReducer, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import BookElement from "./BookElement";
 import PopUpElement from "./PopUpElement";
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "SET_EVENTS":
-      return { ...state, events: action.payload };
-    case "SET_PAGE":
-      return { ...state, page: action.payload };
-    case "LIMIT_PAGE":
-      return { ...state, limitPage: action.payload };
-    default:
-      return state;
-  }
-}
+import fetchEvents from "../../features/eventsFetching/eventFetching";
 
 let inputValue = "";
 
-function Book(props) {
-  const [state, dispatch] = useReducer(reducer, {
-    events: [],
-    loading: false,
-    page: 0,
-    limitPage: 10,
-  });
-
-  const [activeButton, SetActiveButton] = useState(true);
-
-  const [Storage, SetStorage] = useState([]);
-
-  const [IsVisible, SetIsVisible] = useState(false);
-
-  const [CurrentEvent, SetCurrentEvent] = useState();
+function Book() {
+  const [curPage, setCurPage] = useState(0);
+  const [limitPage, setLimitPage] = useState([0, 9]);
+  const [activeButtons, setActiveButtons] = useState(true);
+  const [Storage, setStorage] = useState([]);
+  const [popUpVisibility, setPopUpVisibility] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState();
 
   const { mutate } = useMutation({
     mutationFn: (inputV) => {
@@ -44,120 +24,32 @@ function Book(props) {
   const { isFetching, data } = useQuery({
     initialData: [],
     queryKey: [inputValue],
-    queryFn: async () => {
-      if (!inputValue) return [];
-      const res = await fetch(
-        `https://api.seatgeek.com/2/events?per_page=50&q=${inputValue}`,
-        {
-          headers: {
-            Authorization:
-              "Basic " +
-              btoa(
-                `${process.env.REACT_APP_API_CLIENT}:${process.env.REACT_APP_API_SECRET}`
-              ),
-          },
-        }
-      );
-      const resJSON = await res.json();
-
-      const filteredData = resJSON.events.filter((obj) =>
-        obj.title.toLowerCase().includes(inputValue.toLowerCase().trim())
-      );
-      const data = [];
-
-      for (let i = 0; i < filteredData.length; i += 5) {
-        const pagesInArray = filteredData.slice(i, i + 5);
-        data.push(pagesInArray);
-      }
-      return data;
-    },
+    queryFn: async () => fetchEvents(inputValue),
   });
-
-  console.log(data);
-
-  // useEffect(() => {
-  //   if (!localStorage.getItem("historyData"))
-  //     SetStorage(() =>
-  //       JSON.parse(localStorage.getItem("historyData")).filter(
-  //         (event) =>
-  //           event.datetime_utc >
-  //           new Date().toLocaleString("en-US", { timeZone: "UTC" })
-  //       )
-  //     );
-  // }, []);
-
-  //Data fetching
-  // useEffect(() => {
-  //   let loading = false;
-  //   const fetchData = async () => {
-  //     dispatch({ type: "SET_LOADING", payload: true });
-  //     loading = true;
-  //     const tempArr = [];
-  //     const res = await fetch(
-  //       `https://api.seatgeek.com/2/events?per_page=5000&page=1&q=${state.inputValue}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           Authorization:
-  //             "Basic " +
-  //             btoa(
-  //               `${process.env.REACT_APP_API_CLIENT}:${process.env.REACT_APP_API_SECRET}`
-  //             ),
-  //         },
-  //       }
-  //     );
-  //     const data = await res.json();
-
-  //     const dataFilteredByTitle = data.events.filter((obj) =>
-  //       obj.title.toLowerCase().includes(state.inputValue.toLowerCase().trim())
-  //     );
-
-  //     for (let i = 0; i < dataFilteredByTitle.length; i += 5) {
-  //       const pagesInArray = dataFilteredByTitle.slice(i, i + 5);
-  //       tempArr.push(pagesInArray);
-  //     }
-
-  //     if (loading) {
-  //       dispatch({ type: "SET_EVENTS", payload: tempArr });
-  //     }
-  //     dispatch({ type: "SET_LOADING", payload: false });
-  //     loading = false;
-  //   };
-
-  //   const timer = setTimeout(
-  //     () => state.inputValue.trim().length > 0 && fetchData(),
-  //     500
-  //   );
-  //   return () => {
-  //     clearInterval(timer);
-  //     dispatch({ type: "SET_EVENTS", payload: [] });
-  //     dispatch({ type: "SET_FETCH_PAGE", payload: 1 });
-  //     dispatch({ type: "SET_PAGE", payload: 0 });
-  //     dispatch({ type: "LIMIT_PAGE", payload: 10 });
-  //     dispatch({ type: "SET_LOADING", payload: false });
-  //     loading = false;
-  //   };
-  // }, [state.inputValue]);
 
   // Prev page
   const prevPageHandler = () => {
-    dispatch({ type: "SET_PAGE", payload: state.page - 1 });
-    if (state.page < state.limitPage - 9) {
-      dispatch({ type: "LIMIT_PAGE", payload: state.limitPage - 10 });
+    if (curPage - 1 === limitPage[0] && curPage - 1 !== 0) {
+      setLimitPage((prev) => prev.map((num) => num - 5));
     }
+    setCurPage((prev) => prev - 1);
   };
 
   // Next page
   const nextPageHandler = () => {
-    dispatch({ type: "SET_PAGE", payload: state.page + 1 });
-    if (state.page > state.limitPage - 3) {
-      dispatch({ type: "LIMIT_PAGE", payload: state.limitPage + 10 });
+    if (curPage === limitPage[1] - 1) {
+      setLimitPage((prev) => prev.map((num) => num + 5));
     }
+    setCurPage((prev) => prev + 1);
   };
 
   //Page click Handler
   const changePageHandler = (num) => {
-    dispatch({ type: "SET_PAGE", payload: num });
+    if (num === limitPage[1])
+      setLimitPage((prev) => prev.map((num) => num + 5));
+    if (num === limitPage[0] && num !== 0)
+      setLimitPage((prev) => prev.map((num) => num - 5));
+    setCurPage(num);
   };
 
   return (
@@ -167,7 +59,11 @@ function Book(props) {
           className="Book__section__inputContainer-input"
           type="text"
           placeholder="Enter event name"
-          onChange={(e) => mutate(e.target.value)}
+          onChange={(e) => {
+            setCurPage(0);
+            setLimitPage([0, 9]);
+            mutate(e.target.value);
+          }}
         />
         {isFetching && <div className="spinner spinner-input"></div>}
       </div>
@@ -178,15 +74,15 @@ function Book(props) {
           </div>
         )}
         {data.length > 0 &&
-          data[state.page].map((el) => {
+          data[curPage]?.map((el) => {
             return (
               <BookElement
                 key={el.id}
                 data={el}
                 setCurData={() => {
-                  SetIsVisible(true);
-                  SetActiveButton(false);
-                  SetCurrentEvent(el);
+                  setPopUpVisibility(true);
+                  setActiveButtons(false);
+                  setCurrentEvent(el);
                 }}
               />
             );
@@ -198,9 +94,9 @@ function Book(props) {
             <div
               key={historyEvent.id}
               onClick={() => {
-                SetIsVisible(true);
-                SetActiveButton(false);
-                SetCurrentEvent(historyEvent);
+                setPopUpVisibility(true);
+                setActiveButtons(false);
+                setCurrentEvent(historyEvent);
               }}
               className="Book__section__asideElement-element"
             >
@@ -213,43 +109,40 @@ function Book(props) {
       {data.length > 1 && (
         <div className="Book__section__pagination">
           <button
-            style={{ visibility: state.page > 0 ? "visible" : "hidden" }}
+            style={{ visibility: curPage > 0 ? "visible" : "hidden" }}
             className="Book__section__pagination-button"
             onClick={prevPageHandler}
-            disabled={!activeButton && "disabled"}
+            disabled={!activeButtons && "disabled"}
           >
             {"<"}
           </button>
 
           <div className="Book__section__pagination-pagination">
-            {data.length > 0 &&
-              data.map((arr, numOfIndex) => {
-                if (
-                  numOfIndex < state.limitPage &&
-                  numOfIndex >= state.limitPage - 10
-                )
-                  return (
-                    <button
-                      className={`Book__section__pagination-pagination-button ${
-                        state.page === numOfIndex ? "active-button" : ""
-                      }`}
-                      key={numOfIndex}
-                      onClick={() => changePageHandler(numOfIndex)}
-                      disabled={!activeButton && "disabled"}
-                    >
-                      {numOfIndex + 1}
-                    </button>
-                  );
-              })}
+            {data.map((arr, numOfIndex) => {
+              if (numOfIndex >= limitPage[0] && numOfIndex <= limitPage[1])
+                return (
+                  <button
+                    className={`Book__section__pagination-pagination-button ${
+                      curPage === numOfIndex ? "active-button" : ""
+                    }`}
+                    key={numOfIndex}
+                    onClick={() => changePageHandler(numOfIndex)}
+                    disabled={!activeButtons && "disabled"}
+                  >
+                    {numOfIndex + 1}
+                  </button>
+                );
+              return null;
+            })}
           </div>
 
           <button
             style={{
-              visibility: state.page < data.length - 1 ? "visible" : "hidden",
+              visibility: curPage < data.length - 1 ? "visible" : "hidden",
             }}
             className="Book__section__pagination-button"
             onClick={nextPageHandler}
-            disabled={!activeButton && "disabled"}
+            disabled={!activeButtons && "disabled"}
           >
             {">"}
           </button>
@@ -264,7 +157,7 @@ function Book(props) {
         enableButton={() => SetActiveButton(true)}
         data={CurrentEvent}
         visible={IsVisible}
-        close={() => SetIsVisible(false)}
+        close={() => setPopUpVisibility(false)}
       /> */}
     </section>
   );

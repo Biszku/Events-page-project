@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ImCart, ImMenu } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { setVisibility } from "../../features/visibility/cartVisibility";
+
 function HeaderNav(props) {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function HeaderNav(props) {
               spy={true}
               onClick={() => setVisible(false)}
               smooth={true}
-              offset={-50}
+              offset={-200}
               duration={500}
             >
               Offert
