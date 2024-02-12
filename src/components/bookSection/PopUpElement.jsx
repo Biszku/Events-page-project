@@ -1,12 +1,14 @@
 import { ImBookmark, ImStarFull } from "react-icons/im";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cartController/cart";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
+import isEventInCart from "../../features/cartController/isProductInCart";
 
 function PopUpElement(props) {
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.cart.value);
 
   const lat = props.data?.venue.location.lat || 37;
   const lon = props.data?.venue.location.lon || -95;
@@ -16,10 +18,8 @@ function PopUpElement(props) {
     iconSize: [38, 38],
   });
 
-  const isBookmarkInLocalStorage = () => {
-    let bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
-    if (!bookmarkEvents) return false;
-    const searchEvent = bookmarkEvents.find(
+  const isBookmarked = () => {
+    const searchEvent = props.bookmarkEvents.find(
       (event) => event?.id === props.data?.id
     );
     if (searchEvent) return true;
@@ -41,10 +41,10 @@ function PopUpElement(props) {
       <div className="Book__section__output-item__popup-panel">
         <ImBookmark
           className={`Book__section__output-item__popup-panel-bookicon ${
-            !isBookmarkInLocalStorage() ? "" : "bookmarked"
+            !isBookmarked() ? "" : "bookmarked"
           }`}
           onClick={() =>
-            !isBookmarkInLocalStorage()
+            !isBookmarked()
               ? props.addBookmark(props.data)
               : props.filterBookmark(props.data)
           }
@@ -114,7 +114,10 @@ function PopUpElement(props) {
           />
           <Marker position={[lat, lon]} icon={customIcon}></Marker>
         </MapContainer>
-        <button onClick={() => dispatch(addToCart(props.data))}>
+        <button
+          onClick={() => dispatch(addToCart(props.data))}
+          disabled={isEventInCart(cartState, props.data)}
+        >
           Add To Cart
         </button>
       </div>

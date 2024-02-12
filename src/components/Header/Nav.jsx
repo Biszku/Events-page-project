@@ -1,12 +1,14 @@
 import { Link } from "react-scroll";
 import { useState } from "react";
 import { ImCart, ImMenu } from "react-icons/im";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setVisibility } from "../../features/visibility/cartVisibility";
 
 function HeaderNav(props) {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.cart.value);
+  console.log(cartState);
 
   return (
     <>
@@ -68,14 +70,14 @@ function HeaderNav(props) {
                 dispatch(setVisibility(true));
               }}
             />
-            {props.cart.length !== 0 && (
+            {cartState.length > 0 && (
               <span
                 onClick={() => {
                   setVisible(false);
                   props.SetVisibilityOn();
                 }}
               >
-                {props.cart.reduce((sum, cur) => sum + Number(cur.amount), 0)}
+                {cartState.length}
               </span>
             )}
           </li>

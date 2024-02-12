@@ -22,7 +22,7 @@ function App() {
           <GallerySection />
         </main>
         <Footer />
-        {/* <PopUpCart /> */}
+        <PopUpCart />
       </div>
     </QueryClientProvider>
   );

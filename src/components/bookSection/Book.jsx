@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import BookElement from "./BookElement";
@@ -7,13 +7,19 @@ import fetchEvents from "../../features/eventsFetching/eventFetching";
 
 let inputValue = "";
 
+const bookmarkStore = () => {
+  let bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
+  if (!bookmarkEvents) return [];
+  return bookmarkEvents;
+};
+
 function Book() {
   const [curPage, setCurPage] = useState(0);
   const [limitPage, setLimitPage] = useState([0, 9]);
   const [activeButtons, setActiveButtons] = useState(true);
   const [popUpVisibility, setPopUpVisibility] = useState(false);
   const [currentEvent, setCurrentEvent] = useState();
-  const [bookmarkEvents, setBookmarkEvents] = useState([]);
+  const [bookmarkEvents, setBookmarkEvents] = useState([...bookmarkStore()]);
 
   const { mutate } = useMutation({
     mutationFn: (inputV) => {
@@ -70,12 +76,6 @@ function Book() {
 
     setBookmarkEvents(filteredBookmarks);
   };
-
-  useEffect(() => {
-    const bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
-    if (!bookmarkEvents) return setBookmarkEvents([]);
-    setBookmarkEvents(bookmarkEvents);
-  }, []);
 
   return (
     <section className="Book__section" id="Book__section">
