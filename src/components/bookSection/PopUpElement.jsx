@@ -1,9 +1,13 @@
 import { ImBookmark, ImStarFull } from "react-icons/im";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cartController/cart";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 
 function PopUpElement(props) {
+  const dispatch = useDispatch();
+
   const lat = props.data?.venue.location.lat || 37;
   const lon = props.data?.venue.location.lon || -95;
 
@@ -110,7 +114,9 @@ function PopUpElement(props) {
           />
           <Marker position={[lat, lon]} icon={customIcon}></Marker>
         </MapContainer>
-        <button>Add To Cart</button>
+        <button onClick={() => dispatch(addToCart(props.data))}>
+          Add To Cart
+        </button>
       </div>
     </div>
   );
