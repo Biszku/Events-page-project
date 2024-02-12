@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import BookElement from "./BookElement";
@@ -11,9 +11,9 @@ function Book() {
   const [curPage, setCurPage] = useState(0);
   const [limitPage, setLimitPage] = useState([0, 9]);
   const [activeButtons, setActiveButtons] = useState(true);
-  const [Storage, setStorage] = useState([]);
   const [popUpVisibility, setPopUpVisibility] = useState(false);
   const [currentEvent, setCurrentEvent] = useState();
+  const [bookmarkEvents, setBookmarkEvents] = useState([]);
 
   const { mutate } = useMutation({
     mutationFn: (inputV) => {
@@ -52,6 +52,31 @@ function Book() {
     setCurPage(num);
   };
 
+  //Add bookmark
+  const addBookmark = (event) => {
+    let bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
+    if (!bookmarkEvents) bookmarkEvents = [];
+    bookmarkEvents.push(event);
+    localStorage.setItem("historyData", JSON.stringify(bookmarkEvents));
+
+    setBookmarkEvents((prev) => [event, ...prev]);
+  };
+
+  //Filter bookmark
+  const filterBookmark = (event) => {
+    const bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
+    const filteredBookmarks = bookmarkEvents.filter((e) => e.id !== event.id);
+    localStorage.setItem("historyData", JSON.stringify(filteredBookmarks));
+
+    setBookmarkEvents(filteredBookmarks);
+  };
+
+  useEffect(() => {
+    const bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
+    if (!bookmarkEvents) return setBookmarkEvents([]);
+    setBookmarkEvents(bookmarkEvents);
+  }, []);
+
   return (
     <section className="Book__section" id="Book__section">
       <div className="Book__section__inputContainer">
@@ -89,7 +114,7 @@ function Book() {
           })}
       </div>
       <div className="Book__section__asideElement">
-        {Storage.map((historyEvent) => {
+        {bookmarkEvents?.map((historyEvent) => {
           return (
             <div
               key={historyEvent.id}
@@ -148,17 +173,15 @@ function Book() {
           </button>
         </div>
       )}
-
-      {/* <PopUpElement
-        cart={props.cart}
-        memory={Storage}
-        addToCart={props.addToCart}
-        SetMemory={SetStorage}
-        enableButton={() => SetActiveButton(true)}
-        data={CurrentEvent}
-        visible={IsVisible}
+      <PopUpElement
+        bookmarkEvents={bookmarkEvents}
+        data={currentEvent}
+        visible={popUpVisibility}
         close={() => setPopUpVisibility(false)}
-      /> */}
+        enableButton={() => setActiveButtons(true)}
+        addBookmark={addBookmark}
+        filterBookmark={filterBookmark}
+      />
     </section>
   );
 }

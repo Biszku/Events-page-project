@@ -91,9 +91,12 @@
         grid-template-columns: 40% 60%;
         grid-template-rows: auto 1fr 60%;
 
-        transition: all 0.4s ease-in-out;
+        transition: all 0.3s ease-in-out;
 
         backface-visibility: hidden;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(50vh);
 
         @media (max-width: 58.8125em) {
           width: 100%;
@@ -589,4 +592,14 @@
 
 .leaflet-container {
   flex: 1;
+}
+
+.active-popUp {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0vh);
+}
+
+.bookmarked {
+  color: red;
 }

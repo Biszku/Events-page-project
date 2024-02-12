@@ -17,6 +17,7 @@ const fetchEvents = async (inputValue) => {
   const filteredData = resJSON.events.filter((obj) =>
     obj.title.toLowerCase().includes(inputValue.toLowerCase().trim())
   );
+
   const data = [];
 
   for (let i = 0; i < filteredData.length; i += 5) {

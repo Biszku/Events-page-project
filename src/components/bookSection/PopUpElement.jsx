@@ -7,33 +7,26 @@ function PopUpElement(props) {
   const lat = props.data?.venue.location.lat || 37;
   const lon = props.data?.venue.location.lon || -95;
 
-  const historyData = !JSON.parse(localStorage.getItem("historyData"))
-    ? []
-    : JSON.parse(localStorage.getItem("historyData"));
-
-  const newHistoryData = historyData.find((el) => el?.id === props.data?.id)
-    ? historyData.filter((el) => el.id !== props.data?.id)
-    : [props?.data, ...historyData];
-
-  const historyCart =
-    localStorage.getItem("cart") === null
-      ? []
-      : JSON.parse(localStorage.getItem("cart"));
-  const newHistoryCart = [{ ...props.data, amount: 1 }, ...historyCart];
-
   const customIcon = new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/128/684/684908.png",
     iconSize: [38, 38],
   });
 
+  const isBookmarkInLocalStorage = () => {
+    let bookmarkEvents = JSON.parse(localStorage.getItem("historyData"));
+    if (!bookmarkEvents) return false;
+    const searchEvent = bookmarkEvents.find(
+      (event) => event?.id === props.data?.id
+    );
+    if (searchEvent) return true;
+    return false;
+  };
+
   return (
     <div
-      className="Book__section__output-item__popup"
-      style={{
-        visibility: props.visible ? "visible" : "hidden",
-        opacity: props.visible ? "1" : "0",
-        transform: props.visible ? "translateY(0vh)" : "translateY(-100vh)",
-      }}
+      className={`Book__section__output-item__popup ${
+        props.visible ? "active-popUp" : ""
+      }`}
     >
       <div
         className="Book__section__output-item__popup-img"
@@ -43,23 +36,14 @@ function PopUpElement(props) {
       ></div>
       <div className="Book__section__output-item__popup-panel">
         <ImBookmark
-          onClick={() => {
-            localStorage.setItem("historyData", JSON.stringify(newHistoryData));
-
-            props.memory.find((el) => el.id === props.data?.id)
-              ? props.SetMemory((prevState) =>
-                  prevState.filter((el) => el.id !== props.data?.id)
-                )
-              : props.SetMemory((prevState) => [props?.data, ...prevState]);
-          }}
-          className="Book__section__output-item__popup-panel-bookicon"
-          style={{
-            color: `${
-              props.memory.find((el) => el.id === props.data?.id)
-                ? "red"
-                : "black"
-            }`,
-          }}
+          className={`Book__section__output-item__popup-panel-bookicon ${
+            !isBookmarkInLocalStorage() ? "" : "bookmarked"
+          }`}
+          onClick={() =>
+            !isBookmarkInLocalStorage()
+              ? props.addBookmark(props.data)
+              : props.filterBookmark(props.data)
+          }
         />
         <div
           onClick={() => {
@@ -119,7 +103,6 @@ function PopUpElement(props) {
       <div className="Book__section__output-item__popup-panel-place">
         <p>{`${props.data?.venue.city}, ${props.data?.venue.address}`}</p>
         <p>{props.data?.venue.name}</p>
-
         <MapContainer key={props.data?.id} center={[lat, lon]} zoom={15}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -127,17 +110,7 @@ function PopUpElement(props) {
           />
           <Marker position={[lat, lon]} icon={customIcon}></Marker>
         </MapContainer>
-
-        <button
-          onClick={props.addToCart.bind(null, props.data, newHistoryCart)}
-          disabled={
-            props.data?.stats.lowest_price === null ||
-            props.cart.find((event) => event.id === props.data?.id)?.id ===
-              props.data?.id
-          }
-        >
-          Add To Cart
-        </button>
+        <button>Add To Cart</button>
       </div>
     </div>
   );
