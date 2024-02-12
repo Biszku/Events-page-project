@@ -8,7 +8,6 @@ function HeaderNav(props) {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state.cart.value);
-  console.log(cartState);
 
   return (
     <>

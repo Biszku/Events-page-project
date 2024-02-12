@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import BookElement from "./BookElement";
 import PopUpElement from "./PopUpElement";
 import fetchEvents from "../../features/eventsFetching/eventFetching";
+import InputComponent from "./Input";
 
 let inputValue = "";
 
@@ -18,7 +19,7 @@ function Book() {
   const [limitPage, setLimitPage] = useState([0, 9]);
   const [activeButtons, setActiveButtons] = useState(true);
   const [popUpVisibility, setPopUpVisibility] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState();
+  const [currentEvent, setCurrentEvent] = useState(null);
   const [bookmarkEvents, setBookmarkEvents] = useState([...bookmarkStore()]);
 
   const { mutate } = useMutation({
@@ -79,19 +80,12 @@ function Book() {
 
   return (
     <section className="Book__section" id="Book__section">
-      <div className="Book__section__inputContainer">
-        <input
-          className="Book__section__inputContainer-input"
-          type="text"
-          placeholder="Enter event name"
-          onChange={(e) => {
-            setCurPage(0);
-            setLimitPage([0, 9]);
-            mutate(e.target.value);
-          }}
-        />
-        {isFetching && <div className="spinner spinner-input"></div>}
-      </div>
+      <InputComponent
+        isFetching={isFetching}
+        setCurPage={setCurPage}
+        setLimitPage={setLimitPage}
+        mutate={mutate}
+      />
       <div className="Book__section__output">
         {!isFetching && inputValue && data.length < 1 && (
           <div className="noResultContainer">
@@ -134,8 +128,9 @@ function Book() {
       {data.length > 1 && (
         <div className="Book__section__pagination">
           <button
-            style={{ visibility: curPage > 0 ? "visible" : "hidden" }}
-            className="Book__section__pagination-button"
+            className={`Book__section__pagination-button ${
+              curPage > 0 ? "" : "hidden-button"
+            }`}
             onClick={prevPageHandler}
             disabled={!activeButtons && "disabled"}
           >
@@ -162,10 +157,9 @@ function Book() {
           </div>
 
           <button
-            style={{
-              visibility: curPage < data.length - 1 ? "visible" : "hidden",
-            }}
-            className="Book__section__pagination-button"
+            className={`Book__section__pagination-button ${
+              curPage < data.length - 1 ? "" : "hidden-button"
+            }`}
             onClick={nextPageHandler}
             disabled={!activeButtons && "disabled"}
           >
@@ -173,6 +167,7 @@ function Book() {
           </button>
         </div>
       )}
+
       <PopUpElement
         bookmarkEvents={bookmarkEvents}
         data={currentEvent}
@@ -181,6 +176,7 @@ function Book() {
         enableButton={() => setActiveButtons(true)}
         addBookmark={addBookmark}
         filterBookmark={filterBookmark}
+        setCurrentEvent={setCurrentEvent}
       />
     </section>
   );

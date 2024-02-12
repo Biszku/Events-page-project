@@ -43,11 +43,12 @@ function PopUpElement(props) {
           className={`Book__section__output-item__popup-panel-bookicon ${
             !isBookmarked() ? "" : "bookmarked"
           }`}
-          onClick={() =>
+          onClick={() => {
             !isBookmarked()
               ? props.addBookmark(props.data)
-              : props.filterBookmark(props.data)
-          }
+              : props.filterBookmark(props.data);
+            props.setCurrentEvent(null);
+          }}
         />
         <div
           onClick={() => {
