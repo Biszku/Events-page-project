@@ -73,7 +73,7 @@ function HeaderNav(props) {
               <span
                 onClick={() => {
                   setVisible(false);
-                  props.SetVisibilityOn();
+                  dispatch(setVisibility(true));
                 }}
               >
                 {cartState.length}
