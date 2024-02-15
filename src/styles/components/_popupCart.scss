@@ -371,8 +371,12 @@
           justify-content: center;
 
           padding: 2rem;
-          background-color: rgba(230, 220, 207, 0.7);
-          border-radius: 1rem;
+          background-image: linear-gradient(
+            to top,
+            rgb(230, 220, 207, 0.3),
+            rgba(230, 220, 207, 0.5)
+          );
+          border-radius: 0.5rem;
 
           & p {
             font-size: 1.6rem;

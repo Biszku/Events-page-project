@@ -19,12 +19,14 @@ const PopUpCart = () => {
   document.body.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       dispatch(setVisibility(false));
+      if (page === 3) setPage(1);
     }
   });
 
   const handleTurnToInvisible = (e) => {
     if (![...e.target.classList].includes("popup-cart")) return;
     dispatch(setVisibility(false));
+    if (page === 3) setPage(1);
   };
 
   return (
@@ -61,7 +63,12 @@ const PopUpCart = () => {
             </span>
           )}
 
-          <ClosePopUp close={() => dispatch(setVisibility(false))} />
+          <ClosePopUp
+            close={() => {
+              dispatch(setVisibility(false));
+              if (page === 3) setPage(1);
+            }}
+          />
 
           <ImArrowLeft2
             style={{

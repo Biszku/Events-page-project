@@ -5,7 +5,7 @@ const PageBar = ({ page }) => {
         <span
           className="popup-cart__content-page-container_block-number"
           style={{
-            color: page === 1 ? "#5d5dd5" : "rgb(246 246 246)",
+            color: page === 1 ? "rgb(67 67 141)" : "rgb(246 246 246)",
           }}
         >
           1
@@ -15,7 +15,7 @@ const PageBar = ({ page }) => {
         <span
           className="popup-cart__content-page-container_block-number"
           style={{
-            color: page === 2 ? "#5d5dd5" : "rgb(246 246 246)",
+            color: page === 2 ? "rgb(67 67 141)" : "rgb(246 246 246)",
           }}
         >
           2
@@ -25,7 +25,7 @@ const PageBar = ({ page }) => {
         <span
           className="popup-cart__content-page-container_block-number"
           style={{
-            color: page === 3 ? "#5d5dd5" : "rgb(246 246 246)",
+            color: page === 3 ? "rgb(67 67 141)" : "rgb(246 246 246)",
           }}
         >
           3
