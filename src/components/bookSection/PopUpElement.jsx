@@ -47,13 +47,13 @@ function PopUpElement(props) {
             !isBookmarked()
               ? props.addBookmark(props.data)
               : props.filterBookmark(props.data);
-            props.setCurrentEvent(null);
           }}
         />
         <div
           onClick={() => {
             props.close();
             props.enableButton();
+            props.setCurrentEvent(null);
           }}
           className="Book__section__output-item__popup-panel-closeicon"
         >
