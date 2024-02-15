@@ -52,7 +52,7 @@
     &-item {
       height: 20%;
       background-color: rgba(227, 188, 135, 0.5);
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 8px 0px;
       border-radius: 0.5rem;
 
       display: grid;
@@ -60,7 +60,6 @@
       grid-template-rows: repeat(2, 1fr);
       justify-items: center;
       align-items: center;
-      border-radius: 1rem;
       overflow: hidden;
 
       cursor: pointer;
