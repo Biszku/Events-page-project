@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   changeAmount,
   removeFromCart,
-} from "../../features/cartController/cart";
+} from "../../../features/cartController/cart";
 import InputComponent from "./InputComponent";
 
 const EventsContainer = ({ cartState }) => {

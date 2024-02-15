@@ -1,13 +1,13 @@
-import { ImTruck, ImArrowLeft2 } from "react-icons/im";
+import { ImArrowLeft2 } from "react-icons/im";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setVisibility } from "../../features/visibility/cartVisibility";
 import { useState } from "react";
 import PageBar from "./pageBar";
-import CartComponent from "./cartSection";
+import CartComponent from "./cartSection/cartComponent";
 import ClosePopUp from "./closePopUp";
-import FinishComponent from "./finishComponent";
-import FormDeliveryComponent from "./formDeliveryComponent";
+import FinishComponent from "./finishSection/finishComponent";
+import FormDeliveryComponent from "./formDeliverySection/formDeliveryComponent";
 
 const PopUpCart = () => {
   const dispatch = useDispatch();
