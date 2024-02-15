@@ -11,19 +11,27 @@ export const cart = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      let cartFromLocalStorage = JSON.parse(localStorage.getItem("cart"));
-      if (!cartFromLocalStorage)
-        localStorage.setItem("cart", JSON.stringify([action.payload]));
+      state.value = [{ amount: 1, ...action.payload }, ...state.value];
+      localStorage.setItem("cart", JSON.stringify(state.value));
+    },
+
+    removeFromCart: (state, action) => {
+      state.value = state.value.filter((obj) => obj.id !== action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.value));
+    },
+
+    changeAmount: (state, action) => {
+      if (action.payload.type)
+        state.value.find((obj) => obj.id === action.payload.id).amount =
+          action.payload.amount;
       else
-        localStorage.setItem(
-          "cart",
-          JSON.stringify([action.payload, ...cartFromLocalStorage])
-        );
-      state.value = [action.payload, ...state.value];
+        state.value.find((obj) => obj.id === action.payload.id).amount +=
+          action.payload.amount;
+      localStorage.setItem("cart", JSON.stringify(state.value));
     },
   },
 });
 
-export const { addToCart } = cart.actions;
+export const { addToCart, removeFromCart, changeAmount } = cart.actions;
 
 export default cart.reducer;

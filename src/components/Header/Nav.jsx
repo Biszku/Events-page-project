@@ -76,7 +76,7 @@ function HeaderNav(props) {
                   dispatch(setVisibility(true));
                 }}
               >
-                {cartState.length}
+                {cartState.reduce((sum, el) => sum + el.amount, 0)}
               </span>
             )}
           </li>
