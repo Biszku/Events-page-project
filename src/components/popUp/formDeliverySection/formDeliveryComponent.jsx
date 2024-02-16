@@ -1,6 +1,18 @@
 import { ImTruck } from "react-icons/im";
+import { useForm } from "react-hook-form";
 
 const FormDeliveryComponent = ({ page, visibility, setPage }) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
+  console.log(watch("example"));
+
   return (
     <div
       style={{
@@ -57,52 +69,51 @@ const FormDeliveryComponent = ({ page, visibility, setPage }) => {
       </div>
       <div className="popup-cart__content-2_delivery">
         <p className="popup-cart__content-2_delivery-header">Delivery Type</p>
-        <form className="popup-cart__content-2_delivery_form">
-          <div className="popup-cart__content-2_delivery_form-item">
-            <input
-              style={{
-                display: "none",
-              }}
-              className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
-              type="radio"
-              name="delivery"
-              id="Radio1"
-            />
-            <label htmlFor="Radio1">
-              <div
-                className="popup-cart__content-2_delivery_form-item-radio-style"
-                value="Courier Delivery (online payment)"
-              ></div>
-            </label>
-            <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
-            <span className="popup-cart__content-2_delivery_form-item-text">
-              {`Courier Delivery (online payment)`}
-            </span>
-          </div>
-          <div className="popup-cart__content-2_delivery_form-item">
-            <input
-              style={{
-                display: "none",
-              }}
-              className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
-              type="radio"
-              name="delivery"
-              id="Radio2"
-            />
-            <label htmlFor="Radio2">
-              <div
-                className="popup-cart__content-2_delivery_form-item-radio-style"
-                value="Courier Delivery (cash on delivery)"
-              ></div>
-            </label>
-            <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
-            <span className="popup-cart__content-2_delivery_form-item-text">
-              {`Courier Delivery (cash on delivery)`}
-            </span>
-          </div>
-        </form>
+        <div className="popup-cart__content-2_delivery_form-item">
+          <input
+            style={{
+              display: "none",
+            }}
+            className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
+            type="radio"
+            name="delivery"
+            id="Radio1"
+          />
+          <label htmlFor="Radio1">
+            <div
+              className="popup-cart__content-2_delivery_form-item-radio-style"
+              value="Courier Delivery (online payment)"
+            ></div>
+          </label>
+          <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
+          <span className="popup-cart__content-2_delivery_form-item-text">
+            {`Courier Delivery (online payment)`}
+          </span>
+        </div>
+        <div className="popup-cart__content-2_delivery_form-item">
+          <input
+            style={{
+              display: "none",
+            }}
+            className="popup-cart__content-2_form-item-input popup-cart__content-2_delivery_form-item-radio"
+            type="radio"
+            name="delivery"
+            id="Radio2"
+          />
+          <label htmlFor="Radio2">
+            <div
+              className="popup-cart__content-2_delivery_form-item-radio-style"
+              value="Courier Delivery (cash on delivery)"
+            ></div>
+          </label>
+          <ImTruck className="popup-cart__content-2_delivery_form-item-icon" />
+          <span className="popup-cart__content-2_delivery_form-item-text">
+            {`Courier Delivery (cash on delivery)`}
+          </span>
+        </div>
       </div>
       <button
+      
         onClick={() => {
           setPage((prev) => prev + 1);
         }}
