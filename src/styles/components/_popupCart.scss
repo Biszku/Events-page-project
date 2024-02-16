@@ -318,9 +318,12 @@
       visibility: hidden;
       opacity: 0;
 
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: 80% 20%;
+      & form {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 80% 20%;
+      }
 
       &_form {
         grid-row: 1/-1;
