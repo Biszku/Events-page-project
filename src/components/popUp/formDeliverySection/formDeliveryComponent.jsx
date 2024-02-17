@@ -8,7 +8,9 @@ const FormDeliveryComponent = ({ page, visibility, setPage }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    setPage((prev) => prev + 1);
+  };
 
   return (
     <div
@@ -19,24 +21,23 @@ const FormDeliveryComponent = ({ page, visibility, setPage }) => {
         page === 2 && visibility ? "pageVisible" : ""
       }`}
     >
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setPage((prev) => prev + 1);
-        }}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="popup-cart__content-2_form">
           <div className="popup-cart__content-2_form-item">
             <p>First Name </p>
             <input
-              className="popup-cart__content-2_form-item-input"
+              className={`popup-cart__content-2_form-item-input ${
+                errors.firstName ? "invalid" : ""
+              }`}
               placeholder="John/Jane"
               type="text"
               {...register("firstName", { required: true })}
             />
             <p>Last Name </p>
             <input
-              className="popup-cart__content-2_form-item-input"
+              className={`popup-cart__content-2_form-item-input ${
+                errors.lastName ? "invalid" : ""
+              }`}
               placeholder="Doe"
               type="text"
               {...register("lastName", { required: true })}
@@ -45,14 +46,18 @@ const FormDeliveryComponent = ({ page, visibility, setPage }) => {
           <div className="popup-cart__content-2_form-item">
             <p>Email </p>
             <input
-              className="popup-cart__content-2_form-item-input"
+              className={`popup-cart__content-2_form-item-input ${
+                errors.emailAddress ? "invalid" : ""
+              }`}
               placeholder="anonymou@gmail.com"
               type="email"
               {...register("emailAddress", { required: true })}
             />
             <p>Phone Number </p>
             <input
-              className="popup-cart__content-2_form-item-input"
+              className={`popup-cart__content-2_form-item-input ${
+                errors.phoneNumber ? "invalid" : ""
+              }`}
               placeholder="+12 345 678 912"
               type="tel"
               {...register("phoneNumber", { required: true })}
@@ -62,14 +67,18 @@ const FormDeliveryComponent = ({ page, visibility, setPage }) => {
             <p>Address</p>
             <textarea
               placeholder="Enter address"
-              className="popup-cart__content-2_form-item-input popup-cart__content-2_form-textarea"
+              className={`popup-cart__content-2_form-item-input popup-cart__content-2_form-textarea ${
+                errors.deliveryAddress ? "textAreaInvalid" : ""
+              }`}
               rows="2"
               cols="50"
               {...register("deliveryAddress", { required: true })}
             />
             <p>Postal code </p>
             <input
-              className="popup-cart__content-2_form-item-input"
+              className={`popup-cart__content-2_form-item-input ${
+                errors.postalCode ? "invalid" : ""
+              }`}
               placeholder="Enter postal code"
               type="text"
               {...register("postalCode", { required: true })}
