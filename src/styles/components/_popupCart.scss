@@ -36,6 +36,12 @@
     display: flex;
     flex-direction: column;
 
+    &-container {
+      flex: 1;
+      min-height: 0rem;
+      position: relative;
+    }
+
     &.visible {
       transform: translateY(0%);
       visibility: visible;
@@ -76,14 +82,14 @@
     }
 
     &-1 {
-      display: flex;
-      flex: 1;
-      min-height: 0;
+      height: 100%;
 
       transition: all 0.6s;
       backface-visibility: hidden;
       visibility: hidden;
       opacity: 0;
+
+      display: flex;
 
       @media (max-width: 63.6875em) {
         flex-direction: column;
@@ -290,6 +296,7 @@
           margin-top: auto;
           transition: all 0.3s;
           backface-visibility: hidden;
+          border-radius: 0.5rem;
 
           &:disabled {
             filter: grayscale(100%);
@@ -309,10 +316,10 @@
 
     &-2 {
       width: 100%;
-      height: 85%;
+      height: 100%;
       position: absolute;
       left: 0%;
-      bottom: 0%;
+      top: 0%;
       transition: all 0.6s;
       backface-visibility: hidden;
       visibility: hidden;
@@ -455,6 +462,7 @@
         margin-top: auto;
         transition: all 0.3s;
         backface-visibility: hidden;
+        border-radius: 0.5rem;
 
         &:disabled {
           filter: grayscale(100%);
@@ -552,4 +560,21 @@
 .pageVisible {
   visibility: visible;
   opacity: 1;
+}
+
+.invalid {
+  color: #ff0000 !important;
+  border-bottom: 1px solid #e10000 !important;
+
+  &::placeholder {
+    color: #ff000050 !important;
+  }
+}
+
+.textAreaInvalid {
+  color: #ff0000 !important;
+  border: 1px solid #e10000 !important;
+  &::placeholder {
+    color: #ff000050 !important;
+  }
 }
