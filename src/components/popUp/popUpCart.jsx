@@ -32,36 +32,38 @@ const PopUpCart = () => {
   return (
     <>
       <div
-        className={`popup-cart${visibility ? " visible" : ""}`}
+        className={`popup-cart ${visibility ? "visible" : ""}`}
         onClick={(e) => handleTurnToInvisible(e)}
       >
-        <div className={`popup-cart__content${visibility ? " visible" : ""}`}>
+        <div className={`popup-cart__content ${visibility ? "visible" : ""}`}>
           {cartState.length !== 0 && <PageBar page={page} />}
-          {cartState.length !== 0 && (
-            <CartComponent
-              page={page}
-              visibility={visibility}
-              setPage={setPage}
-            />
-          )}
+          <div className="popup-cart__content-container">
+            {cartState.length !== 0 && (
+              <CartComponent
+                page={page}
+                visibility={visibility}
+                setPage={setPage}
+              />
+            )}
 
-          {cartState.length !== 0 && (
-            <FormDeliveryComponent
-              page={page}
-              visibility={visibility}
-              setPage={setPage}
-            />
-          )}
+            {cartState.length !== 0 && (
+              <FormDeliveryComponent
+                page={page}
+                visibility={visibility}
+                setPage={setPage}
+              />
+            )}
 
-          {cartState.length !== 0 && (
-            <FinishComponent page={page} visibility={visibility} />
-          )}
+            {cartState.length !== 0 && (
+              <FinishComponent page={page} visibility={visibility} />
+            )}
 
-          {cartState.length === 0 && (
-            <span className="popup-cart__content-none">
-              There Is Nothing In The Cart
-            </span>
-          )}
+            {cartState.length === 0 && (
+              <span className="popup-cart__content-none">
+                There Is Nothing In The Cart
+              </span>
+            )}
+          </div>
 
           <ClosePopUp
             close={() => {
