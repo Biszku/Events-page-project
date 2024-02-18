@@ -10,12 +10,14 @@ const EventsContainer = ({ cartState }) => {
   const dispatch = useDispatch();
 
   const IncreaseQuantity = (quantity, id, element) => {
+    if (quantity.includes("."))
+      return (element.current.value = Math.round(+quantity));
     if (isNaN(quantity)) {
       dispatch(changeAmount({ id, amount: 1, type: "set" }));
       element.current.value = 1;
       return;
     }
-    dispatch(changeAmount({ id, amount: +quantity, type: "set" }));
+    dispatch(changeAmount({ id, amount: Math.round(+quantity), type: "set" }));
   };
 
   const IncreaseQuantityByOne = (id, element) => {
