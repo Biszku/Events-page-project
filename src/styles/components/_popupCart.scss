@@ -41,6 +41,14 @@
       flex: 1;
       min-height: 0rem;
       position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    &-none {
+      font-size: 6.2rem;
+      font-weight: bold;
+      color: rgb(85 81 77);
     }
 
     &.visible {
@@ -480,7 +488,7 @@
 
     &-3 {
       width: 100%;
-      height: 85%;
+      height: 100%;
       position: absolute;
       bottom: 0%;
       left: 0%;
