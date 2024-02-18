@@ -70,7 +70,7 @@ const FormDeliveryComponent = ({ page, visibility, setPage }) => {
               className={`popup-cart__content-2_form-item-input popup-cart__content-2_form-textarea ${
                 errors.deliveryAddress ? "textAreaInvalid" : ""
               }`}
-              rows="2"
+              rows="1"
               cols="50"
               {...register("deliveryAddress", { required: true })}
             />

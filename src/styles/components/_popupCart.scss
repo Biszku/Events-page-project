@@ -24,6 +24,7 @@
     background-color: rgb(191 183 174);
     border-radius: 1rem;
     overflow: hidden;
+    gap: 5rem;
 
     transform: translateY(-50%);
     visibility: hidden;
@@ -83,20 +84,22 @@
 
     &-1 {
       height: 100%;
-
       transition: all 0.6s;
       backface-visibility: hidden;
       visibility: hidden;
       opacity: 0;
 
       display: flex;
+      gap: 10rem;
 
       @media (max-width: 63.6875em) {
         flex-direction: column;
       }
 
       &_events-container {
-        padding: 5rem;
+        padding: 4rem;
+        padding-top: 0rem;
+        padding-right: 0rem;
         width: 70%;
 
         display: grid;
@@ -228,7 +231,8 @@
         }
       }
       &_summary-container {
-        padding: 5rem;
+        padding-right: 4rem;
+        padding-bottom: 4rem;
 
         display: flex;
         flex-direction: column;
@@ -357,7 +361,6 @@
           align-items: center;
           justify-content: center;
 
-          padding: 2rem;
           background-image: linear-gradient(
             to top,
             rgb(230, 220, 207, 0.3),
