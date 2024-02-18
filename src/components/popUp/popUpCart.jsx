@@ -2,6 +2,7 @@ import { ImArrowLeft2 } from "react-icons/im";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setVisibility } from "../../features/visibility/cartVisibility";
+import { removeAllProducts } from "../../features/cartController/cart";
 import { useState } from "react";
 import PageBar from "./pageBar";
 import CartComponent from "./cartSection/cartComponent";
@@ -19,14 +20,20 @@ const PopUpCart = () => {
   document.body.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       dispatch(setVisibility(false));
-      if (page === 3) setPage(1);
+      if (page === 3) {
+        dispatch(removeAllProducts());
+        setPage(1);
+      }
     }
   });
 
   const handleTurnToInvisible = (e) => {
     if (![...e.target.classList].includes("popup-cart")) return;
     dispatch(setVisibility(false));
-    if (page === 3) setPage(1);
+    if (page === 3) {
+      dispatch(removeAllProducts());
+      setPage(1);
+    }
   };
 
   return (
@@ -68,7 +75,10 @@ const PopUpCart = () => {
           <ClosePopUp
             close={() => {
               dispatch(setVisibility(false));
-              if (page === 3) setPage(1);
+              if (page === 3) {
+                dispatch(removeAllProducts());
+                setPage(1);
+              }
             }}
           />
 
