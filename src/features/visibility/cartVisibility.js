@@ -7,7 +7,7 @@ export const cartVisibility = createSlice({
   },
   reducers: {
     setVisibility: (state, action) => {
-      state.value = action.payload;
+      if (typeof action.payload === "boolean") state.value = action.payload;
     },
   },
 });
